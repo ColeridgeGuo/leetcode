@@ -110,7 +110,10 @@ class ListNode:
 # convert input string to ListNode
 def stringToListNode(input):
     # Generate list from the input
-    numbers = stringToList(input)
+    if isinstance(input, str):
+        numbers = stringToList(input)
+    else:
+        numbers = input
     
     # Now convert that list into linked list
     dummyRoot = ListNode(0)
