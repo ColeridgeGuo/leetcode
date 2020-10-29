@@ -5,7 +5,7 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
-    
+        
     def __str__(self):
         return f'{self.val}'
 
@@ -32,10 +32,10 @@ def stringToTreeNode(input):
             leftNumber = int(item)
             node.left = TreeNode(leftNumber)
             nodeQueue.append(node.left)
-        
+            
         if index >= len(inputValues):
             break
-        
+            
         item = inputValues[index]
         index = index + 1
         if item != "null":
@@ -59,7 +59,7 @@ def treeNodeToString(root):
         if not node:
             output += "null, "
             continue
-        
+            
         output += str(node.val) + ", "
         queue.append(node.left)
         queue.append(node.right)
@@ -102,7 +102,7 @@ class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
-    
+        
     def __str__(self):
         return f"{self.val}"
 
@@ -114,14 +114,14 @@ def stringToListNode(input):
         numbers = stringToList(input)
     else:
         numbers = input
-    
+        
     # Now convert that list into linked list
     dummyRoot = ListNode(0)
     ptr = dummyRoot
     for number in numbers:
         ptr.next = ListNode(number)
         ptr = ptr.next
-    
+        
     return dummyRoot.next
 
 

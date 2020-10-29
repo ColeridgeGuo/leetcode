@@ -39,7 +39,7 @@ class Solution:
                     max_of_left = nums1[i - 1]
                 else:  # max_of_left is the max of two left partitions
                     max_of_left = max(nums1[i - 1], nums2[j - 1])
-                
+                    
                 if (m + n) % 2:  # if total length is odd, return middle number
                     return max_of_left
                 
@@ -50,7 +50,7 @@ class Solution:
                     min_of_right = nums1[i]
                 else:  # min_of_right is the min of two right partitions
                     min_of_right = min(nums1[i], nums2[j])
-                
+                    
                 # if total length is even, return avg of the middle two numbers
                 return (max_of_left + min_of_right) / 2
 

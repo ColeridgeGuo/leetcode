@@ -44,7 +44,7 @@ class Solution:
                 jump.next, jump, left = prev, left, right
             else:
                 return dummy.next
-    
+            
     def reverseKGroup_recur(self, head: ListNode, k: int) -> ListNode:
         if not head:
             return head

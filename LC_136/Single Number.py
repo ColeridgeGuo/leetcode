@@ -19,7 +19,7 @@ class Solution:
         for num in dic:
             if dic[num] == 1:
                 return num
-    
+            
     def singleNumber_math(self, nums: List[int]) -> int:
         """
             Time complexity: O(n+n) = O(n)

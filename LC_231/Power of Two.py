@@ -21,7 +21,7 @@ class Solution:
     
     def isPowerOfTwo_bit_count(self, n: int) -> bool:
         return bin(n).count('1') == 1
-        
+    
 
 def main():
     while True:

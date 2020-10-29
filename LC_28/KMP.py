@@ -20,7 +20,7 @@ class KMP:
         self.p = pattern  # pattern
         self.lps = self.__lps() 
         # preprocess the pattern to generate the partial match table
-    
+        
     def search_in(self, string: str) -> int:
         """ Implementation of the Knuth-Morris-Pratt Pattern Searching algorithm
             Complexity:
@@ -71,8 +71,7 @@ class KMP:
     def display(self):
         print(self.p)
         print(self.lps)
-    
-    
+        
 def main():
     kmp = KMP("aaaaa")
     string = "aaaaaa"
@@ -83,6 +82,6 @@ def main():
     else:
         print(f"Pattern \"{kmp.p}\" first found in \"{string}\" at index {found}.")
         
-    
+        
 if __name__ == "__main__":
     main()

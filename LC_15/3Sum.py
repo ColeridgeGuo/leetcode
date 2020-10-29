@@ -17,12 +17,12 @@ class Solution:
         for i in range(len(nums)-2):
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
-            
+                
             tuples = self.twoSum(nums, i + 1, -nums[i])
             for tup in tuples:
                 tup.append(nums[i])
                 res.append(tup)
-            
+                
         return res
     
     def twoSum(self, nums: List[int], start: int, target: int) -> List[List[int]]:

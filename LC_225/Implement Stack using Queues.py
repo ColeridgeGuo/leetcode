@@ -19,7 +19,7 @@ class MyStack:
         Initialize your data structure here.
         """
         self.stack = deque()
-    
+        
     def push(self, x: int) -> None:
         """
         Push element x onto stack.
@@ -27,7 +27,7 @@ class MyStack:
         self.stack.append(x)
         for _ in range(len(self.stack) - 1):
             self.stack.append(self.stack.popleft())
-        
+            
     def pop(self) -> int:
         """
         Removes the element on top of the stack and returns that element.

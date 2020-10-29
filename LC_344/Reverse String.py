@@ -21,7 +21,7 @@ class Solution:
         while l < r:
             s[l], s[r] = s[r], s[l]
             l, r = l + 1, r - 1
-    
+            
     def reverseString_recursive(self, s: List[str]) -> None:
         """
             Time Complexity: O(n/2) = O(n)

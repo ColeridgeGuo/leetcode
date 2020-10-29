@@ -18,7 +18,7 @@ class MinStack:
         """
         self.stack = []
         self.minNum = float('inf')
-    
+        
     def push(self, x: int) -> None:
         if x <= self.minNum:
             # whenever a new min is pushed, we push the old min onto the stack,
@@ -26,12 +26,12 @@ class MinStack:
             self.stack.append(self.minNum)
             self.minNum = x
         self.stack.append(x)
-    
+        
     def pop(self) -> None:
         # if minNum is popped, the old min is re-set to minNUm
         if self.stack.pop() == self.minNum:
             self.minNum = self.stack.pop()
-    
+            
     def top(self) -> int:
         return self.stack[-1]
     

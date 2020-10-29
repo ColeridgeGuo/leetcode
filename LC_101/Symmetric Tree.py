@@ -27,7 +27,7 @@ class Solution:
             q.append(t2.right)
             q.append(t1.right)
             q.append(t2.left)
-                
+            
         return True
 
     def isSymmetric_recursive(self, root: TreeNode) -> bool:

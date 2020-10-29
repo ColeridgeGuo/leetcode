@@ -18,7 +18,7 @@ class MyQueue:
         self.q1 = []
         self.q2 = []
         self.top = None
-    
+        
     def push(self, x: int) -> None:
         """
         Push element x to the back of queue.
@@ -26,7 +26,7 @@ class MyQueue:
         if not self.q1:
             self.top = x
         self.q1.append(x)
-    
+        
     def pop(self) -> int:
         """
         Removes the element from in front of queue and returns that element.

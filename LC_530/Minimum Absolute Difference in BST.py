@@ -49,7 +49,7 @@ class Solution:
             lmin = mindiff(root.left, lo, root.val)
             rmin = mindiff(root.right, root.val, hi)
             return min(root.val - lo, hi - root.val, lmin, rmin)
-    
+        
         return mindiff(root, float('-inf'), float('inf'))
 
 

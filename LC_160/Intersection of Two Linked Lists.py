@@ -22,7 +22,7 @@ class Solution:
             length += 1
             ptr = ptr.next
         return length
-        
+    
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         """
             create dummy heads for the shorter list to have the same length as
@@ -44,7 +44,7 @@ class Solution:
                 dummy = ListNode(None)
                 dummy.next = headB
                 headB = dummy
-        
+                
         ptrA, ptrB = headA, headB
         # O(k), k = # of leading nodes before the intersection/max(skipA, skipB)
         while ptrA and ptrB:
@@ -62,14 +62,14 @@ class Solution:
         """
         if not headA or not headB:
             return None
-    
+        
         pa = headA  # 2 pointers
         pb = headB
-    
+        
         while pa is not pb:
             pa = headB if not pa else pa.next
             pb = headA if not pb else pb.next
-    
+            
         return pa
 
 

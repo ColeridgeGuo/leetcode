@@ -13,7 +13,7 @@ class Solution:
             self.helper(root.left, count)
             self.helper(root.right, count)
             count[root.val] += 1
-    
+            
     def findMode(self, root: TreeNode) -> List[int]:
         """
             Use a counter to keep track of frequencies of all numbers in BST.
@@ -84,7 +84,7 @@ class Solution3:
             self.inorder(root.left)
             self.handleValue(root.val)
             self.inorder(root.right)
-    
+            
     def handleValue(self, val: int):
         if val != self.prev:
             self.prev = val

@@ -20,14 +20,14 @@ class Solution:
             level = []
             for i in range(len(q)):
                 c = q.popleft()
-            
+                
                 if c.left:
                     q.append(c.left)
                 if c.right:
                     q.append(c.right)
                 level.append(c.val)
             traversal.appendleft(level)
-        
+            
         return list(traversal)
     
     def levelOrderBottom_recursive(self, root: TreeNode) -> List[List[int]]:

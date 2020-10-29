@@ -56,7 +56,7 @@ def stringToListNode(input, pos):
         elif i == len(numbers) - 1:
             ptr.next.next = cycleStart
         ptr = ptr.next
-    
+        
     ptr = dummyRoot.next
     return ptr
 

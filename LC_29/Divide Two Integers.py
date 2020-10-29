@@ -35,7 +35,7 @@ class Solution:
             while temp << 1 <= dividend:
                 temp <<= 1
                 m <<= 1
-            
+                
             dividend -= temp
             quotient += m
         return -quotient if same_sign else quotient

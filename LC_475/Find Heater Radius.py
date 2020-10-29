@@ -14,7 +14,7 @@ class Solution:
         htr = min_radius = 0
         for house in sorted(houses):
             while htr < len(heaters) - 1 and \
-                    abs(heaters[htr+1] - house) <= abs(heaters[htr] - house):
+                abs(heaters[htr+1] - house) <= abs(heaters[htr] - house):
                 htr += 1
             min_radius = max(min_radius, abs(heaters[htr] - house))
         return min_radius

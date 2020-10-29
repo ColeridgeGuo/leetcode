@@ -8,7 +8,7 @@ from common_funcs import TreeNode, stringToTreeNode, treeNodeToString
     
 class Solution:
     greater = 0
-        
+    
     def convertBST_recursive(self, root: TreeNode) -> TreeNode:
         """
         Time Complexity: O(n)
@@ -27,14 +27,14 @@ class Solution:
         Space Complexity: O(n)
         """
         total = 0
-    
+        
         node = root
         stack = []
         while stack or node:
             while node:
                 stack.append(node)
                 node = node.right
-        
+                
             node = stack.pop()
             total += node.val
             node.val = total

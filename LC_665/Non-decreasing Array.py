@@ -29,7 +29,7 @@ class Solution:
                     return False
                 p = i  # the index where out-of-order occurs
         return not p or p == len(nums)-2 or \
-            nums[p-1] <= nums[p+1] or nums[p] <= nums[p+2]
+               nums[p-1] <= nums[p+1] or nums[p] <= nums[p+2]
 
 
 def main():

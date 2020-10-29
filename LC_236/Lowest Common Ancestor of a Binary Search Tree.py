@@ -29,7 +29,7 @@ class Solution:
             return lca_right
         else:
             return lca_left
-    
+        
     def lowestCommonAncestor_iterative(self,
                                        root: 'TreeNode',
                                        p: 'TreeNode',
@@ -95,10 +95,10 @@ def stringToTreeNode(input, p_val, q_val):
             p = node.left if p_val == leftNumber else p
             q = node.left if q_val == leftNumber else q
             nodeQueue.append(node.left)
-        
+            
         if index >= len(inputValues):
             break
-        
+            
         item = inputValues[index]
         index = index + 1
         if item != "null":

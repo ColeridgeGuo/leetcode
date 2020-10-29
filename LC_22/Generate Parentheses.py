@@ -22,7 +22,7 @@ class Solution:
                 backtrack(s + '(', l + 1, r)
             if r < l:
                 backtrack(s + ')', l, r + 1)
-        
+                
         backtrack('', 0, 0)
         return res
     

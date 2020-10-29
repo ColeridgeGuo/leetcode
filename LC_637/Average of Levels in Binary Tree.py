@@ -61,7 +61,7 @@ class Solution:
                     count.append(1)
                 average(t.left, i + 1)
                 average(t.right, i + 1)
-        
+                
         average(root, 0)
         for i in range(len(res)):
             res[i] = res[i] / count[i]

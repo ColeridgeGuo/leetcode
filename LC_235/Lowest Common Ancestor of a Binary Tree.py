@@ -23,7 +23,7 @@ class Solution:
             return self.lowestCommonAncestor_recursive(root.right, p, q)
         else:
             return root
-    
+        
     def lowestCommonAncestor_iterative(self,
                                        root: 'TreeNode',
                                        p: 'TreeNode',

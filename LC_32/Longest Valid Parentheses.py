@@ -59,7 +59,7 @@ class Solution:
                 ans = max(ans, 2 * right)
             elif right > left:  # invalid pair, reset counters
                 left = right = 0
-        
+                
         left = right = 0
         # scan from right to left
         for i in range(len(s)-1, -1, -1):

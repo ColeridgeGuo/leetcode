@@ -21,7 +21,7 @@ class NestedInteger:
         nested list.
         """
         return self.val != 0
-        
+    
     def getInteger(self) -> int:
         """
         @return the single integer that this NestedInteger holds, if it holds a
@@ -37,12 +37,12 @@ class NestedInteger:
         Return None if this NestedInteger holds a single integer
         """
         return self.list
-       
+    
 
 class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
         self.list = nestedList
-    
+        
     def next(self) -> int:
         return self.list.pop().getInteger()
     

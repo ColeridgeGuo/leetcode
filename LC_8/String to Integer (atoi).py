@@ -41,7 +41,7 @@ class Solution:
             if res < -2**31:
                 return -2**31
             return res
-    
+        
     def myAtoi_re(self, s: str) -> int:
         import re
         match = re.match(r'^\s*([+-]?\d+)', s)

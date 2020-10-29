@@ -21,7 +21,7 @@ class Solution:
             if target - num in dic:
                 return [dic[target - num], i + 1]
             dic[num] = i + 1
-    
+            
     def twoSum_pointers(self, numbers: List[int], target: int) -> List[int]:
         """
             Time Complexity: O(n)
@@ -55,7 +55,7 @@ def main():
             print(f"Solved using pointers:   {out_pointers}")
         except StopIteration:
             break
-    
+            
 
 if __name__ == '__main__':
     main()

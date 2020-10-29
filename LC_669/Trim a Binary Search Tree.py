@@ -29,7 +29,7 @@ class Solution:
                 root = root.right
             if root.val > R:
                 root = root.left
-        
+                
         dummy = root
         # remove the invalid nodes from left subtree.
         while dummy:
@@ -37,7 +37,7 @@ class Solution:
                 dummy.left = dummy.left.right
                 # if left child smaller than L, keep the right subtree of it.
             dummy = dummy.left
-        
+            
         dummy = root
         # remove the invalid nodes from right subtree.
         while dummy:

@@ -22,7 +22,7 @@ def main():
             print(ret)
         except StopIteration:
             break
-        
+            
 
 if __name__ == '__main__':
     main()

@@ -29,7 +29,7 @@ def stringToListNode(input, n):
             node = curr
         ptr.next = curr
         ptr = ptr.next
-    
+        
     ptr = dummyRoot.next
     return ptr, node
 

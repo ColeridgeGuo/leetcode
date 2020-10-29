@@ -15,7 +15,7 @@ class Solution:
                 L -= 1
                 R += 1
             return R - L - 1  # return found palindrome length
-            
+        
         if not s:
             return s
         start = end = 0

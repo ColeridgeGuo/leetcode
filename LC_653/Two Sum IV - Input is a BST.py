@@ -44,7 +44,7 @@ class Solution:
                 inorder(root.left)
                 traversal.append(root.val)
                 inorder(root.right)
-        
+                
         inorder(root)
         l, r = 0, len(traversal) - 1
         while l < r:
