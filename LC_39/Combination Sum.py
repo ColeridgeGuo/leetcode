@@ -16,19 +16,17 @@ class Solution:
     def combinationSum(self, candidates: List[int],
                        target: int) -> List[List[int]]:
         
-        def backtrack(choices: List[int], target: int,
-                      track: List[int], answer: List[List[int]]) -> None:
+        def backtrack(choices: List[int], target: int, track: List[int]):
             if target < 0:
                 return
             if target == 0:
-                answer.append(track)
+                res.append(track)
                 return
             for i in range(len(choices)):
-                backtrack(choices[i:], target-choices[i],
-                          track+[choices[i]], answer)
+                backtrack(choices[i:], target-choices[i], track+[choices[i]])
                 
         res = []
-        backtrack(candidates, target, [], res)
+        backtrack(candidates, target, [])
         return res
     
     def combinationSum_2(self, candidates: List[int],
