@@ -8,6 +8,9 @@ class TreeNode:
         
     def __str__(self):
         return f'{self.val}'
+    
+    def __repr__(self):
+        return f"{self.val}"
 
 
 # convert input string to TreeNode
@@ -104,6 +107,9 @@ class ListNode:
         self.next = next
         
     def __str__(self):
+        return f"{self.val}"
+    
+    def __repr__(self):
         return f"{self.val}"
 
 
