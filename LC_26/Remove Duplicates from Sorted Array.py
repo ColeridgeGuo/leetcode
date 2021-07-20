@@ -52,6 +52,23 @@ class Solution:
                 nums[i - count] = nums[i]
         return len(nums) - count
 
+    def removeDuplicates_3(self, nums: List[int]) -> int:
+        """
+        Pointer i points the index to replace if duplicates occur and pointer n 
+        loops thru the array. Both start from 0 and move forward. However, 
+        when n is not greater than its previous number, meaning that there are 2 
+        identical numbers (array is non-decreasing), pointer i stays still to be 
+        replaced by bigger number; otherwise replace i w/ diff number and move.
+        Time Complexity: O(n)
+        Space Complexity: O(1)
+        """
+        i = 0
+        for n in nums:
+            if i < 1 or n > nums[i-1]:
+                nums[i] = n
+                i += 1
+        return i
+
 
 def main():
     while True:
@@ -59,15 +76,19 @@ def main():
             line = input()
             nums = stringToList(line)
             nums2 = stringToList(line)
+            nums3 = stringToList(line)
 
             sol = Solution()
             ret = sol.removeDuplicates(nums)
             ret2 = sol.removeDuplicates_2(nums2)
+            ret3 = sol.removeDuplicates_3(nums3)
 
             out = listToString(nums[:ret])
             out2 = listToString(nums2[:ret2])
+            out3 = listToString(nums3[:ret3])
             print(out)
             print(out2)
+            print(out3)
         except StopIteration:
             break
 
