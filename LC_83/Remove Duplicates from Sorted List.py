@@ -1,15 +1,14 @@
 """
-Given a sorted linked list, delete all duplicates such that each element appear
-only once.
+Given the head of a sorted linked list, delete all duplicates such that each 
+element appears only once. Return the linked list sorted as well.
 """
-from common_funcs import ListNode
+from common_funcs import stringToListNode, ListNode, listNodeToString
 
 
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         current = head
-
-        while current is not None and current.next is not None:
+        while current and current.next:
             if current.next.val == current.val:
                 current.next = current.next.next
             else:
@@ -17,19 +16,20 @@ class Solution:
         return head
 
 
-if __name__ == "__main__":
-    
-    # create a linked list
-    node1 = ListNode(1)
-    node2 = ListNode(1)
-    node3 = ListNode(2)
-    node4 = ListNode(3)
-    node5 = ListNode(3)
-    
-    node1.next = node2
-    node2.next = node3
-    node3.next = node4
-    node4.next = node5
-    
-    newNode = Solution().deleteDuplicates(node1)
-    print(newNode)
+def main():
+    while True:
+        try:
+            line = input()
+            head = stringToListNode(line)
+
+            sol = Solution()
+            ret = sol.deleteDuplicates(head)
+
+            out = listNodeToString(ret)
+            print(out)
+        except StopIteration:
+            break
+
+
+if __name__ == '__main__':
+    main()
