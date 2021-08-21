@@ -13,7 +13,6 @@ class Solution:
         res += self.inorderTraversal_recur(root.left)
         res += [root.val]
         res += self.inorderTraversal_recur(root.right)
-
         return res
 
     def inorderTraversal_iter(self, root: TreeNode) -> List[int]:
@@ -27,6 +26,21 @@ class Solution:
             curr = curr.right
         return res
 
+    def inorderTraversal_morris(self, root: TreeNode) -> List[int]:
+        res = []
+        curr, prev = root, None
+        while curr:
+            if not curr.left:
+                res.append(curr.val)
+                curr = curr.right
+            else:
+                prev = curr.left
+                while prev.right:
+                    prev = prev.right
+                prev.right = curr
+                curr.left, curr = None, curr.left
+        return res
+
 
 def main():
     while True:
@@ -34,15 +48,19 @@ def main():
             line = input()
             root = stringToTreeNode(line)
             root2 = stringToTreeNode(line)
+            root3 = stringToTreeNode(line)
 
             sol = Solution()
             ret = sol.inorderTraversal_recur(root)
             ret2 = sol.inorderTraversal_iter(root2)
+            ret3 = sol.inorderTraversal_morris(root3)
 
             out = listToString(ret)
             out2 = listToString(ret2)
-            print(f"Solved recursively: {out}")
-            print(f"Solved iteratively: {out2}")
+            out3 = listToString(ret3)
+            print(f"Solved recursively:         {out}")
+            print(f"Solved iteratively:         {out2}")
+            print(f"Solved using Morris method: {out3}")
         except StopIteration:
             break
 
