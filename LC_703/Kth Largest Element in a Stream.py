@@ -13,7 +13,7 @@ import heapq
 
 
 class KthLargest:
-    
+
     def __init__(self, k: int, nums: List[int]):
         self.pool = nums
         self.k = k
@@ -22,10 +22,9 @@ class KthLargest:
             heapq.heappop(self.pool)
 
     def add(self, val: int) -> int:
-        if len(self.pool) < self.k:
-            heapq.heappush(self.pool, val)
-        elif val > self.pool[0]:
-            heapq.heapreplace(self.pool, val)
+        heapq.heappush(self.pool, val)
+        if len(self.pool) > self.k:
+            heapq.heappop(self.pool)
         return self.pool[0]
 
 
@@ -36,7 +35,7 @@ def main():
             numbers = input()
             operations = stringToList(operations)
             numbers = stringToList(numbers)
-            
+
             kthLargest = None
             res = []
             for i, op in enumerate(operations):
@@ -47,7 +46,7 @@ def main():
                     kth = kthLargest.add(numbers[i][0])
                     res.append(kth)
             print(res)
-            
+
         except StopIteration:
             break
 
