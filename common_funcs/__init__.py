@@ -1,5 +1,5 @@
 from typing import List, Union
-RecurList = List[Union[int, 'RecurList']]
+RecurList = List[Union[int, str, 'RecurList']]
 
 
 # ###################  TreeNode  ################### #
