@@ -13,7 +13,7 @@ from common_funcs import listToString, stringToList
 
 
 class Solution:
-    def topKFrequent_counter(self, words: List[str], k: int) -> List[str]:
+    def topKFrequent_sort(self, words: List[str], k: int) -> List[str]:
         """
         Count frequencies then sort by frequencies and break ties alphabetically
         Time Complexity: O(n*log(n))
@@ -41,13 +41,13 @@ def main():
             k = int(line)
 
             sol = Solution()
-            ret = sol.topKFrequent_counter(words, k)
+            ret = sol.topKFrequent_sort(words, k)
             ret2 = sol.topKFrequent_heap(words, k)
 
             out = listToString(ret)
             out2 = listToString(ret2)
-            print(out)
-            print(out2)
+            print(f"Solved by sorting: {out}")
+            print(f"Solved w/ minheap: {out2}")
         except StopIteration:
             break
 
