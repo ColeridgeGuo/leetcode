@@ -47,7 +47,7 @@ class Solution:
         Loop thru the histogram and maintain a monotonic stack of indices of 
         non-decreasing values because a non-decreasing value means that we can 
         extend to form a larger rectangle, whereas a smaller value means that we 
-        have pop off of the stack to calculate the max rectangle area so far. 
+        have to pop off of the stack to calculate the max rectangle area so far. 
         Indices on the stack represent the index from which we start to build 
         the rectangle.
 
