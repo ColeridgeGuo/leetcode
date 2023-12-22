@@ -34,6 +34,22 @@ class Solution:
             root.right = self.buildTree_2(preorder, inorder[ind + 1:])
             return root
 
+    def buildTree_3(self, preorder, inorder):
+        preorder_index = 0
+        inorder_index_map = {x: i for i, x in enumerate(inorder)}
+
+        def helper(left, right):
+            nonlocal preorder_index
+            if left > right:
+                return
+            root_val = preorder[preorder_index]
+            preorder_index += 1
+            lsub = helper(left, inorder_index_map[root_val]-1)
+            rsub = helper(inorder_index_map[root_val]+1, right)
+            return TreeNode(root_val, lsub, rsub)
+
+        return helper(0, len(preorder)-1)
+
 
 def main():
     while True:
@@ -41,18 +57,23 @@ def main():
             line = input()
             preorder = stringToList(line)
             preorder2 = stringToList(line)
+            preorder3 = stringToList(line)
             line = input()
             inorder = stringToList(line)
             inorder2 = stringToList(line)
-            
+            inorder3 = stringToList(line)
+
             sol = Solution()
             ret = sol.buildTree(preorder, inorder)
             ret2 = sol.buildTree_2(preorder2, inorder2)
-            
+            ret3 = sol.buildTree_3(preorder3, inorder3)
+
             out = treeNodeToString(ret)
             out2 = treeNodeToString(ret2)
+            out3 = treeNodeToString(ret3)
             print(out)
             print(out2)
+            print(out3)
         except StopIteration:
             break
 
