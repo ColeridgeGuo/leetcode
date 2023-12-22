@@ -12,9 +12,10 @@ from common_funcs import stringToString, stringToString_out
 class Solution:
     def gcdOfStrings(self, str1: str, str2: str) -> str:
         """
-        Say s1 = m*GCD, s2 = n*GCD and if s1 and s2 have a GCD, then s1+s2 = 
-        (m + n) * GCD = s2 + s2. And their GCD is the prefix substring of length 
-        the gcd of their lengths, i.e., s1[:gcd(len(s1), len(s2))]
+        Say s1 = m*GCD, s2 = n*GCD and if s1 and s2 have a GCD,
+        then s1 + s2 = (m + n) * GCD = s2 + s1.
+        And their GCD is the prefix substring of length the gcd of their lengths,
+        i.e., s1[:gcd(len(s1), len(s2))]
         """
         from math import gcd
         return str1[:gcd(len(str1), len(str2))] if str1 + str2 == str2 + str1 else ''
@@ -59,8 +60,8 @@ def main():
 
             sol = Solution()
             ret = sol.gcdOfStrings(str1, str2)
-            ret2 = sol.gcdOfStrings(str1, str2)
-            ret3 = sol.gcdOfStrings(str1, str2)
+            ret2 = sol.gcdOfStrings_recur(str1, str2)
+            ret3 = sol.gcdOfStrings_iter(str1, str2)
 
             out = stringToString_out(ret)
             out2 = stringToString_out(ret2)
