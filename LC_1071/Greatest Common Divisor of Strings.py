@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 For two strings s and t, we say "t divides s" if and only if s = t + ... + t 
 (t concatenated with itself 1 or more times)
@@ -18,7 +19,7 @@ class Solution:
         from math import gcd
         return str1[:gcd(len(str1), len(str2))] if str1 + str2 == str2 + str1 else ''
 
-    def gcdOfStrings_recur(self, str1: str, str2, str) -> str:
+    def gcdOfStrings_recur(self, str1: str, str2: str) -> str:
         """
         If two strings have a GCD, then the shorter string of the two is always 
         a prefix substring of the longer one; otherwise a GCD does not exist. We 
@@ -34,7 +35,7 @@ class Solution:
             return self.gcdOfStrings_recur(str1[len(str2):], str2)
         return ''  # no GCD
 
-    def gcdOfStrings_iter(self, str1: str, str2, str) -> str:
+    def gcdOfStrings_iter(self, str1: str, str2: str) -> str:
         """
         If two strings have a GCD, then the prefix substring of length the GCD 
         of their lengths is the GCD.

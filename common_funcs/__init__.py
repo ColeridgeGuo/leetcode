@@ -1,4 +1,5 @@
 from typing import List, Union
+import json
 RecurList = List[Union[int, str, 'RecurList']]
 
 
@@ -77,13 +78,11 @@ def treeNodeToString(root: TreeNode) -> str:
 # ###################  string <=> list  ################### #
 # convert input string to list
 def stringToList(input: str) -> RecurList:
-    import json
     return json.loads(input)
 
 
 # convert output list to string
 def listToString(nums: RecurList, len_of_list: int = None) -> str:
-    import json
     if not len_of_list:
         len_of_list = len(nums)
     return json.dumps(nums[:len_of_list])
@@ -92,13 +91,11 @@ def listToString(nums: RecurList, len_of_list: int = None) -> str:
 # ###################  string <=> string  ################### #
 # convert input string to string
 def stringToString(input: str) -> str:
-    import json
     return json.loads(input)
 
 
 # convert output string to string
 def stringToString_out(input: str) -> str:
-    import json
     return json.dumps(input)
 
 
