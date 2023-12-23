@@ -8,7 +8,7 @@ from common_funcs import stringToListNode, ListNode, listNodeToString
 
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
-        dummy = ListNode(next=head)  # dummy head before original head
+        dummy = ListNode(next_node=head)  # dummy head before original head
         # fast points to the last node w/i a group of identical numbers
         # slow points to the node before each group of identical numbers
         fast, slow = head, dummy
@@ -27,7 +27,7 @@ class Solution:
         return dummy.next
 
     def deleteDuplicates_2(self, head: ListNode) -> ListNode:
-        dummy = ListNode(next=head)  # dummy head before original head
+        dummy = ListNode(next_node=head)  # dummy head before original head
         # fast points to the last node w/i a group of identical numbers
         # slow points to the node before each group of identical numbers
         fast, slow = head, dummy

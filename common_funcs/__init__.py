@@ -1,11 +1,18 @@
-from typing import List, Union
+from typing import List, Union, Optional
 import json
+
 RecurList = List[Union[int, str, 'RecurList']]
 
 
 # ###################  TreeNode  ################### #
 class TreeNode:
-    def __init__(self, val: int = 0, left: 'TreeNode' = None, right: 'TreeNode' = None) -> None:
+    """
+    Binary Tree Node class
+    """
+
+    def __init__(self, val: int = 0,
+                 left: 'TreeNode' = None,
+                 right: 'TreeNode' = None) -> None:
         self.val = val
         self.left = left
         self.right = right
@@ -17,43 +24,47 @@ class TreeNode:
         return f"{self.val}"
 
 
-# convert input string to TreeNode
-def stringToTreeNode(input: str) -> TreeNode:
-    input = input.strip()
-    input = input[1:-1]
-    if not input:
-        return None
+def stringToTreeNode(input_: str) -> Optional[TreeNode]:
+    """
+    Converts input string to TreeNode
+    """
+    input_ = input_.strip()
+    input_ = input_[1:-1]
+    if not input_:
+        return
 
-    inputValues = [s.strip() for s in input.split(',')]
-    root = TreeNode(int(inputValues[0]))
-    nodeQueue = [root]
+    input_values = [s.strip() for s in input_.split(',')]
+    root = TreeNode(int(input_values[0]))
+    node_queue: List[TreeNode] = [root]
     front = 0
     index = 1
-    while index < len(inputValues):
-        node = nodeQueue[front]
+    while index < len(input_values):
+        node = node_queue[front]
         front = front + 1
 
-        item = inputValues[index]
+        item = input_values[index]
         index = index + 1
         if item != "null":
-            leftNumber = int(item)
-            node.left = TreeNode(leftNumber)
-            nodeQueue.append(node.left)
+            left_number = int(item)
+            node.left = TreeNode(left_number)
+            node_queue.append(node.left)
 
-        if index >= len(inputValues):
+        if index >= len(input_values):
             break
 
-        item = inputValues[index]
+        item = input_values[index]
         index = index + 1
         if item != "null":
-            rightNumber = int(item)
-            node.right = TreeNode(rightNumber)
-            nodeQueue.append(node.right)
+            right_number = int(item)
+            node.right = TreeNode(right_number)
+            node_queue.append(node.right)
     return root
 
 
-# convert output TreeNode to string
 def treeNodeToString(root: TreeNode) -> str:
+    """
+    Converts output TreeNode to string
+    """
     if not root:
         return "[]"
     output = ""
@@ -76,35 +87,45 @@ def treeNodeToString(root: TreeNode) -> str:
 
 
 # ###################  string <=> list  ################### #
-# convert input string to list
-def stringToList(input: str) -> RecurList:
-    return json.loads(input)
+def stringToList(input_: str) -> RecurList:
+    """
+    Converts input string to list (recursive)
+    """
+    return json.loads(input_)
 
 
-# convert output list to string
 def listToString(nums: RecurList, len_of_list: int = None) -> str:
+    """
+    Converts output list to string
+    """
     if not len_of_list:
         len_of_list = len(nums)
     return json.dumps(nums[:len_of_list])
 
 
 # ###################  string <=> string  ################### #
-# convert input string to string
-def stringToString(input: str) -> str:
-    return json.loads(input)
+def stringToString(input_: str) -> str:
+    """
+    Converts input string to string
+    """
+    return json.loads(input_)
 
 
-# convert output string to string
-def stringToString_out(input: str) -> str:
-    return json.dumps(input)
+def stringToString_out(input_: str) -> str:
+    """
+    Converts output string to string
+    """
+    return json.dumps(input_)
 
 
 # ###################  ListNode  ################### #
-# ListNode class
 class ListNode:
-    def __init__(self, val: int = 0, next: 'ListNode' = None) -> None:
+    """
+    List Node class
+    """
+    def __init__(self, val: int = 0, next_node: 'ListNode' = None) -> None:
         self.val = val
-        self.next = next
+        self.next = next_node
 
     def __str__(self) -> str:
         return f"{self.val}"
@@ -113,26 +134,30 @@ class ListNode:
         return f"{self.val}"
 
 
-# convert input string to ListNode
-def stringToListNode(input: str) -> ListNode:
+def stringToListNode(input_: str) -> ListNode:
+    """
+    Converts input string to ListNode
+    """
     # Generate list from the input
-    if isinstance(input, str):
-        numbers = stringToList(input)
+    if isinstance(input_, str):
+        numbers = stringToList(input_)
     else:
-        numbers = input
+        numbers = input_
 
     # Now convert that list into linked list
-    dummyRoot = ListNode(0)
-    ptr = dummyRoot
+    dummy_root = ListNode(0)
+    ptr = dummy_root
     for number in numbers:
         ptr.next = ListNode(number)
         ptr = ptr.next
 
-    return dummyRoot.next
+    return dummy_root.next
 
 
-# convert output ListNode to string
 def listNodeToString(node: ListNode) -> str:
+    """
+    Converts output ListNode to string
+    """
     if not node:
         return "[]"
 

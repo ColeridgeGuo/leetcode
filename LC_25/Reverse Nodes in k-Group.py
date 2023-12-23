@@ -11,7 +11,7 @@ from common_funcs import ListNode, stringToListNode, listNodeToString
 
 class Solution:
     def reverseKGroup_iter1(self, head: ListNode, k: int) -> ListNode:
-        dummy = prev = ListNode(next=head)
+        dummy = prev = ListNode(next_node=head)
         i = 0
         while head:
             i += 1
@@ -30,7 +30,7 @@ class Solution:
         return first
     
     def reverseKGroup_iter2(self, head: ListNode, k: int) -> ListNode:
-        dummy = jump = ListNode(next=head)
+        dummy = jump = ListNode(next_node=head)
         left = right = head
         while True:
             count = 0

@@ -13,7 +13,7 @@ class Solution:
             Time Complexity: O(n)
             Space Complexity: O(1)
         """
-        dummy_root = ListNode(next=head)
+        dummy_root = ListNode(next_node=head)
         prev = dummy_root
         while head:
             if head.val == val:

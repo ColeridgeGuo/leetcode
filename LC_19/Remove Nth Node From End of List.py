@@ -29,7 +29,7 @@ class Solution:
         Time Complexity: O(2n) = O(n)
         Space Complexity: O(1)
         """
-        dummy = ListNode(next=head)
+        dummy = ListNode(next_node=head)
         length, curr = 0, head
         while curr:
             length, curr = length + 1, curr.next
@@ -46,7 +46,7 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1)
         """
-        dummy = ListNode(next=head)
+        dummy = ListNode(next_node=head)
         pt1 = pt2 = dummy
         for _ in range(n+1):
             pt1 = pt1.next

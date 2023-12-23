@@ -13,7 +13,7 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1)
         """
-        dummy = prev = ListNode(next=head)
+        dummy = prev = ListNode(next_node=head)
         curr = head
         while curr and curr.next:
             # NextNode is the next node of Curr.next to be swapped later
@@ -35,7 +35,7 @@ class Solution:
         Detail explanation for swapping by changing 3 references:
         https://leetcode.com/problems/swap-nodes-in-pairs/discuss/171788/Python-or-Dummynode
         """
-        dummy = prev = ListNode(next=head)
+        dummy = prev = ListNode(next_node=head)
         while prev.next and prev.next.next:
             # first, second node in a pair (will become second and first)
             first, second = prev.next, prev.next.next
