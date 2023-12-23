@@ -12,12 +12,12 @@ from common_funcs import stringToList
 
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        for i, flower in enumerate(flowerbed):
-            if not flower and \
-                (i == 0 or not flowerbed[i - 1]) and \
-                (i == len(flowerbed) - 1 or not flowerbed[i + 1]):
-                flowerbed[i] = 1
-                n -= 1
+        for i, planted in enumerate(flowerbed):
+            if not planted:
+                if i == 0 or not flowerbed[i - 1]:
+                    if i == len(flowerbed) - 1 or not flowerbed[i + 1]:
+                        flowerbed[i] = 1
+                        n -= 1
         return n <= 0
 
 
@@ -28,10 +28,10 @@ def main():
             flowerbed = stringToList(line)
             line = input()
             n = int(line)
-            
+
             sol = Solution()
             ret = sol.canPlaceFlowers(flowerbed, n)
-            
+
             print(ret)
         except StopIteration:
             break
