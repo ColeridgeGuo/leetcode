@@ -1,21 +1,30 @@
 """
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of
+rows like this:
 
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR"
+
+Write the code that will take a string and make this conversion given a number
+of rows
 """
 from common_funcs import stringToString, stringToString_out
 
 
 class Solution:
-    def convert(self, s: str, numRows: int) -> str:
-        if numRows == 1:
+    def convert(self, s: str, num_rows: int) -> str:
+        if num_rows == 1:
             return s
         from math import ceil
         res = []
         n = len(s)
-        cycle = numRows + (numRows - 2)
-        for offset in range(numRows):
+        cycle = num_rows + (num_rows - 2)
+        for offset in range(num_rows):
             for i in range(ceil(n / cycle) + 1):
                 idx = i * cycle
-                if offset in {0, numRows - 1}:
+                if offset in {0, num_rows - 1}:
                     if idx + offset < n:
                         res.append(s[idx + offset])
                 else:
@@ -24,33 +33,34 @@ class Solution:
                     if idx + offset < n:
                         res.append(s[idx + offset])
         return ''.join(res)
-    
-    def convert_2(self, s: str, numRows: int) -> str:
-        if numRows == 1:
+
+    def convert_2(self, s: str, num_rows: int) -> str:
+        if num_rows == 1:
             return s
         res = []
         n = len(s)
-        cycle = numRows + (numRows - 2)
-        for offset in range(numRows):
+        cycle = num_rows + (num_rows - 2)
+        for offset in range(num_rows):
             for i in range(0, n - offset, cycle):
                 res.append(s[i + offset])
-                if offset != 0 and offset != numRows - 1 and i + cycle - offset < n:
+                if (offset != 0 and offset != num_rows - 1
+                        and i + cycle - offset < n):
                     res.append(s[i + cycle - offset])
         return ''.join(res)
-    
-    def convert_3(self, s, numRows):
-        if numRows == 1 or numRows >= len(s):
+
+    def convert_3(self, s: str, num_rows: int) -> str:
+        if num_rows == 1 or num_rows >= len(s):
             return s
-        L = [''] * numRows
+        ans = [''] * num_rows
         index, step = 0, 1
         for x in s:
-            L[index] += x
+            ans[index] += x
             if index == 0:
                 step = 1
-            elif index == numRows -1:
+            elif index == num_rows - 1:
                 step = -1
             index += step
-        return ''.join(L)
+        return ''.join(ans)
 
 
 def main():
@@ -59,13 +69,13 @@ def main():
             line = input()
             s = stringToString(line)
             line = input()
-            numRows = int(line)
-            
+            num_rows = int(line)
+
             sol = Solution()
-            ret = sol.convert(s, numRows)
-            ret2 = sol.convert_2(s, numRows)
-            ret3 = sol.convert_3(s, numRows)
-            
+            ret = sol.convert(s, num_rows)
+            ret2 = sol.convert_2(s, num_rows)
+            ret3 = sol.convert_3(s, num_rows)
+
             out = stringToString_out(ret)
             out2 = stringToString_out(ret2)
             out3 = stringToString_out(ret3)
