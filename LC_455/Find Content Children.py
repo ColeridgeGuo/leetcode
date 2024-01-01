@@ -11,7 +11,7 @@ from common_funcs import stringToList
 
 
 class Solution:
-    def findContentChildren_2(self, g: List[int], s: List[int]) -> int:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
         """
             m = len(g), n = len(s)
             Time Complexity: O(m log(m)) + O(n log(n))
@@ -36,7 +36,7 @@ def main():
             s = stringToList(line)
 
             sol = Solution()
-            ret = sol.findContentChildren_2(g, s)
+            ret = sol.findContentChildren(g, s)
             
             out = str(ret)
             print(f"Solved in O(n log(n)) time: {out}")
