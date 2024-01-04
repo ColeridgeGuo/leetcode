@@ -7,55 +7,34 @@ from common_funcs import stringToList, listToString
 
 
 class Solution:
-    def moveZeroes_del(self, nums: List[int]) -> None:
+
+    def moveZeroes(self, nums: List[int]) -> None:
         """
-            Time Complexity: O(n), if del is O(1)
-            Space Complexity: O(k), where k = # of 0's
+        - All elements before the slow pointer are non-zeroes.
+        - All elements between the current and slow pointer are zeroes.
+        Time Complexity: O(n)
+        Space Complexity: O(1)
         """
-        i = 0
-        n = len(nums)
-        num_zeros = 0
-        while i < n:
-            if nums[i] == 0:
-                num_zeros += 1
-                del nums[i]
-                n -= 1
-            else:
-                i += 1
-        for zero in range(num_zeros):
-            nums.append(0)
-        return
-    
-    def moveZeroes_swap(self, nums: list) -> None:
-        """
-            Time Complexity: O(n)
-            Space Complexity: O(1)
-        """
-        slow = fast = 0
-        while fast < len(nums):
+        slow = 0
+        for fast in range(len(nums)):
             if nums[fast] != 0:
                 nums[slow], nums[fast] = nums[fast], nums[slow]
-            # wait while we find a non-zero element to
-            # switch with you
             if nums[slow] != 0:
                 slow += 1
-            # keep going
-            fast += 1
 
 
 def main():
     while True:
         try:
             line = input()
-            nums1 = stringToList(line)
-            nums2 = stringToList(line)
+            nums = stringToList(line)
             
             sol = Solution()
-            sol.moveZeroes_del(nums1)
-            sol.moveZeroes_swap(nums2)
-            
-            print(nums1)
-            print(nums2)
+            sol.moveZeroes(nums)
+
+            out = listToString(nums)
+
+            print(f"Solved with two pointers: {out}")
         except StopIteration:
             break
 
