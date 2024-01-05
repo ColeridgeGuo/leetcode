@@ -5,14 +5,17 @@ A subsequence of a string is a new string which is formed from the original
 string by deleting some (can be none) of the characters without disturbing the
 relative positions of the remaining characters.c
 """
+import bisect
+import collections
+
 from common_funcs import stringToString
 
 
 class Solution:
-    def isSubsequence_pointers(self, s: str, t: str) -> bool:
+    def isSubsequence(self, s: str, t: str) -> bool:
         """
-            Time Complexity: O(|t|)
-            Space Complexity:O(1)
+        Time Complexity: O(|t|)
+        Space Complexity:O(1)
         """
         p1 = p2 = 0
         while p1 < len(s):
@@ -23,30 +26,38 @@ class Solution:
             except IndexError:
                 return False
         return True
+
+    def isSubsequence_2(self, s: str, t: str) -> bool:
+        """
+        Time Complexity: O(|t|)
+        Space Complexity:O(1)
+        """
+        ps = 0
+        for c in t:
+            if ps < len(s) and s[ps] == c:
+                ps += 1
+        return ps == len(s)
     
     def isSubsequence_iter(self, s: str, t: str) -> bool:
         """
-            Time Complexity: O(|s| + |t|)
-            Space Complexity: O(1)
+        Time Complexity: O(|s| + |t|)
+        Space Complexity: O(1)
         """
-        t = iter(t)
-        return all(c in t for c in s)
+        return all(c in iter(t) for c in s)
 
     def isSubsequence_bisect(self, s, t):
         """
-            record the indexes for each character in t, if s[i] matches t[j],
-            then s[i+1] should match a character in t with index bigger than j.
-            This can be reduced to find the first element larger than a value in
-            an sorted array (find upper bound), which can be achieved using
-            binary search.
-            Time Complexity: O(|t|) for setting up idx, O(lg(|s|)) for each s
-            Space Complexity: O(|t|)
+        Record the indexes for each character in t, if s[i] matches t[j], then
+        s[i+1] should match a character in t with index bigger than j. This can
+        be reduced to find the first element larger than a value in a sorted
+        array (find upper bound), which can be achieved using binary search.
+
+        Time Complexity: O(|t|) for setting up idx, O(lg(|s|)) for each s
+        Space Complexity: O(|t|)
         """
-        from collections import defaultdict
-        from bisect import bisect_left
         
         # map of all indices of each occurrence of every char in t
-        pos_map = defaultdict(list)
+        pos_map = collections.defaultdict(list)
         for i, char in enumerate(t):
             pos_map[char].append(i)
 
@@ -54,7 +65,7 @@ class Solution:
         lower_bound = 0
         for i, char in enumerate(s):
             # try to find an index that is larger than or equal to lowBound
-            j = bisect_left(pos_map[char], lower_bound)
+            j = bisect.bisect_left(pos_map[char], lower_bound)
             if j == len(pos_map[char]):
                 return False
             lower_bound = pos_map[char][j] + 1
@@ -70,13 +81,15 @@ def main():
             t = stringToString(line)
 
             sol = Solution()
-            ret_pt = sol.isSubsequence_pointers(s, t)
-            ret_iter = sol.isSubsequence_pointers(s, t)
+            ret_1 = sol.isSubsequence(s, t)
+            ret_2 = sol.isSubsequence_2(s, t)
+            ret_iter = sol.isSubsequence(s, t)
             ret_bi = sol.isSubsequence_bisect(s, t)
             
-            print(f"Solved using two pointers:  {ret_pt}")
-            print(f"Solved using iter:          {ret_iter}")
-            print(f"Solved using binary search: {ret_bi}")
+            print(f"Solved using two pointers:    {ret_1}")
+            print(f"Solved using two pointers 2:  {ret_2}")
+            print(f"Solved using iter():          {ret_iter}")
+            print(f"Solved using binary search:   {ret_bi}")
         except StopIteration:
             break
 
