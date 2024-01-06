@@ -28,16 +28,19 @@ class Solution:
 
     def longestSubarray_2(self, nums: List[int]) -> int:
         """
-        Use a sliding window to find the max subarray with at most one 0.
-
+        Use a shrinking sliding window to find the max subarray with at most
+        one 0.
         Time Complexity: O(n)
         Space Complexity: O(1)
         """
-        ans = k = left = 0
+        ans = left = 0
+        k = 1
         for right in range(len(nums)):
-            k += nums[right] == 0  # increment k if we include more 0
-            while k > 1:  # we have included more than one 0
-                k -= nums[left] == 0  # decrement k if we are excluding a 0
+            if nums[right] == 0:
+                k -= 1  # decrement k if we include more 0
+            while k < 0:  # we have included more than one 0
+                if nums[left] == 0:
+                    k += 1  # increment k if we are excluding a 0
                 left += 1  # move left to the right to new max subarray
             ans = max(ans, right - left)
         return ans
