@@ -30,6 +30,22 @@ class Solution:
                 left += 1  # move left to the right to find new max subarray
         return right - left + 1
 
+    def longestOnes_2(self, nums: List[int], k: int) -> int:
+        """
+        In this approach, the window does shrink, so we need to keep track of
+        the max subarray size.
+        """
+        left = ans = 0
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                k -= 1
+            while k < 0:
+                if nums[left] == 0:
+                    k += 1
+                left += 1
+            ans = max(ans, right - left + 1)
+        return ans
+
 
 def main():
     while True:
@@ -41,9 +57,10 @@ def main():
 
             sol = Solution()
             ret = sol.longestOnes(nums, k)
+            ret2 = sol.longestOnes_2(nums, k)
 
-            out = str(ret)
-            print(out)
+            print(f"Solved with non-shrinking sliding window: {ret}")
+            print(f"Solved with shrinking sliding window:     {ret2}")
         except StopIteration:
             break
 
