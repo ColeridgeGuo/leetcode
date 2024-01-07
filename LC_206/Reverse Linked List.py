@@ -1,12 +1,11 @@
 """
     Reverse a singly linked list.
 """
-from typing import Optional
 from common_funcs import ListNode, stringToListNode, listNodeToString
         
 
 class Solution:
-    def reverseList_iterative(self, head: ListNode) -> Optional[ListNode]:
+    def reverseList_iterative(self, head: ListNode) -> ListNode | None:
         """
             Time Complexity: O(n)
             Space Complexity: O(1)
@@ -19,7 +18,7 @@ class Solution:
             head = next_temp
         return prev
     
-    def reverseList_recursive(self, head: ListNode) -> Optional[ListNode]:
+    def reverseList_recursive(self, head: ListNode) -> ListNode | None:
         if not head or not head.next:
             return head
         p = self.reverseList_recursive(head.next)

@@ -5,13 +5,11 @@ less than x come before nodes greater than or equal to x.
 You should preserve the original relative order of the nodes in each of the two 
 partitions.
 """
-from typing import Optional
-
 from common_funcs import ListNode, listNodeToString, stringToListNode
 
 
 class Solution:
-    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+    def partition(self, head: ListNode | None, x: int) -> ListNode | None:
         """
         Keep track of nodes smaller and greater than x while iterating thru the 
         list, appending greater list to smaller list, preserving relative order

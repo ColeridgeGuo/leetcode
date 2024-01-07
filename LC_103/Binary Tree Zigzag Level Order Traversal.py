@@ -3,14 +3,14 @@ Given the root of a binary tree, return the zigzag level order traversal of its
 nodes' values. (i.e., from left to right, then right to left for the next level 
 and alternate between).
 """
-from tkinter.tix import Tree
-from typing import List, Optional
-from common_funcs import TreeNode, listToString, stringToList, stringToTreeNode
 from collections import deque
+from typing import List
+
+from common_funcs import TreeNode, listToString, stringToTreeNode
 
 
 class Solution:
-    def zigzagLevelOrder_bfs(self, root: Optional[TreeNode]) -> List[List[int]]:
+    def zigzagLevelOrder_bfs(self, root: TreeNode | None) -> List[List[int]]:
         if not root:
             return []
         res = []
@@ -36,7 +36,7 @@ class Solution:
             level += 1
         return res
 
-    def zigzagLevelOrder_dfs(self, root: Optional[TreeNode]) -> List[List[int]]:
+    def zigzagLevelOrder_dfs(self, root: TreeNode | None) -> List[List[int]]:
         if not root:
             return []
         res = []

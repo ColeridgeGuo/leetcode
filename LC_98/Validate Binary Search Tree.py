@@ -7,22 +7,22 @@ A valid BST is defined as follows:
 - The right subtree of a node contains only keys greater than the node's key.
 - Both the left and right subtrees must also be binary search trees.
 """
-from typing import Optional
 from common_funcs import TreeNode, stringToTreeNode
 
 
 class Solution:
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def dfs(node: TreeNode, minVal, maxVal):
+    def isValidBST(self, root: TreeNode | None) -> bool:
+        def dfs(node: TreeNode, min_val, max_val):
             if not node:
                 return True
-            if node.val <= minVal or node.val >= maxVal:
+            if node.val <= min_val or node.val >= max_val:
                 return False
-            return dfs(node.left, minVal, node.val) and dfs(node.right, node.val, maxVal)
+            return (dfs(node.left, min_val, node.val) and
+                    dfs(node.right, node.val, max_val))
 
         return dfs(root, float('-inf'), float('inf'))
 
-    def isValidBST_iter(self, root: Optional[TreeNode]) -> bool:
+    def isValidBST_iter(self, root: TreeNode | None) -> bool:
         stack = []
         prev, curr = None, root
         while stack or curr:

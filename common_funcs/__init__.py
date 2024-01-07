@@ -1,7 +1,7 @@
-from typing import List, Union, Optional
 import json
+from typing import List
 
-RecurList = List[Union[int, str, 'RecurList']]
+RecurList = List[int | str | 'RecurList']
 
 
 # ###################  TreeNode  ################### #
@@ -24,7 +24,7 @@ class TreeNode:
         return f"{self.val}"
 
 
-def stringToTreeNode(input_: str) -> Optional[TreeNode]:
+def stringToTreeNode(input_: str) -> TreeNode | None:
     """
     Converts input string to TreeNode
     """
@@ -123,6 +123,7 @@ class ListNode:
     """
     List Node class
     """
+
     def __init__(self, val: int = 0, next_node: 'ListNode' = None) -> None:
         self.val = val
         self.next = next_node
