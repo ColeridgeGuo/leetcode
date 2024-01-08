@@ -12,11 +12,15 @@ Furthermore, you may assume that the original data does not contain any digits
 and that digits are only for those repeat numbers, k. For example, there won't
 be input like 3a or 2[4].
 """
-from common_funcs import stringToString
+import collections
+import re
 from typing import List, Deque
+
+from common_funcs import stringToString
 
 
 class Solution:
+
     def decodeString_stack(self, s: str) -> str:
         stack = []
         curr_num = 0
@@ -42,11 +46,10 @@ class Solution:
             else:
                 curr_str.append(c)
         return ''.join(curr_str)
-    
+
     def decodeString_recur(self, s: str) -> str:
-        from collections import deque
-        queue = deque(s)
-        
+        queue = collections.deque(s)
+
         def decode(q: Deque[str]) -> List[str]:
             sb = []
             num = 0
@@ -66,13 +69,13 @@ class Solution:
                 else:
                     sb.append(char)
             return sb
-        
+
         return ''.join(decode(queue))
-    
+
     def decodeString_re(self, s: str) -> str:
-        import re
         while '[' in s:
-            s = re.sub(r'(\d+)\[(\w*)]', lambda m: int(m.group(1)) * m.group(2), s)
+            s = re.sub(r'(\d+)\[(\w*)]',
+                       lambda m: int(m.group(1)) * m.group(2), s)
         return s
 
 
@@ -81,15 +84,16 @@ def main():
         try:
             line = input()
             s = stringToString(line)
-            
+
             sol = Solution()
             ret = sol.decodeString_stack(s)
             ret2 = sol.decodeString_recur(s)
             ret3 = sol.decodeString_re(s)
-            
+
             print(f"Solved using a stack: {ret}")
             print(f"Solved recursively:   {ret2}")
             print(f"Solved using regex:   {ret3}")
+            print()
         except StopIteration:
             break
 
