@@ -1,7 +1,7 @@
 import json
 from typing import List
 
-RecurList = List[int | str | 'RecurList']
+RecurList = List['int | str | RecurList']
 
 
 # ###################  TreeNode  ################### #
