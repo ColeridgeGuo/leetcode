@@ -3,6 +3,8 @@ Given a binary tree, find its maximum depth.
 The maximum depth is the number of nodes along the longest path from the
 root node down to the farthest leaf node.
 """
+import collections
+
 from common_funcs import TreeNode, stringToTreeNode
 
 
@@ -10,14 +12,11 @@ class Solution:
     def maxDepth_bfs(self, root: TreeNode) -> int:
         if not root:
             return 0
-        
-        from collections import deque
         depth = 0
-        q = deque()
-        q.appendleft(root)
+        q = collections.deque([root])
         while q:
             depth += 1
-            for i in range(len(q)):
+            for _ in range(len(q)):
                 current = q.pop()
                 
                 if current.left:
@@ -30,7 +29,8 @@ class Solution:
     def maxDepth_dfs(self, root: TreeNode) -> int:
         if not root:
             return 0
-        return max(self.maxDepth_dfs(root.left), self.maxDepth_dfs(root.right)) + 1
+        return max(self.maxDepth_dfs(root.left),
+                   self.maxDepth_dfs(root.right)) + 1
 
 
 def main():
