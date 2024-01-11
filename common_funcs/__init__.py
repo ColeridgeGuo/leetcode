@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import List, Tuple
 
 RecurList = List['int | str | RecurList']
 
@@ -59,6 +59,49 @@ def stringToTreeNode(input_: str) -> TreeNode | None:
             node.right = TreeNode(right_number)
             node_queue.append(node.right)
     return root
+
+
+def stringToTreeNode_pq(input_: str, p_val: int, q_val: int) -> Tuple[TreeNode, TreeNode, TreeNode] | None:
+    """
+    Converts input string to TreeNode with two nodes p and q in the tree.
+    """
+    input_ = input_.strip()
+    input_ = input_[1:-1]
+    if not input_:
+        return None
+
+    input_values = [s.strip() for s in input_.split(',')]
+    root = TreeNode(int(input_values[0]))
+    p = root if p_val == int(input_values[0]) else None
+    q = root if q_val == int(input_values[0]) else None
+    node_queue = [root]
+    front = 0
+    index = 1
+    while index < len(input_values):
+        node = node_queue[front]
+        front = front + 1
+
+        item = input_values[index]
+        index = index + 1
+        if item != "null":
+            left_number = int(item)
+            node.left = TreeNode(left_number)
+            p = node.left if p_val == left_number else p
+            q = node.left if q_val == left_number else q
+            node_queue.append(node.left)
+
+        if index >= len(input_values):
+            break
+
+        item = input_values[index]
+        index = index + 1
+        if item != "null":
+            right_number = int(item)
+            node.right = TreeNode(right_number)
+            p = node.right if p_val == right_number else p
+            q = node.right if q_val == right_number else q
+            node_queue.append(node.right)
+    return root, p, q
 
 
 def treeNodeToString(root: TreeNode) -> str:
