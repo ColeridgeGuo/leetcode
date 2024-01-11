@@ -2,43 +2,38 @@
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in
 the tree.
 Note:
-    All of the nodes' values will be unique.
-    p and q are different and both values will exist in the binary tree.
+- All the nodes' values will be unique.
+- p and q are different and both values will exist in the binary tree.
 """
-from common_funcs import TreeNode
+from common_funcs import TreeNode, stringToTreeNode_pq
 
 
 class Solution:
-    def lowestCommonAncestor_recursive(self,
-                                       root: 'TreeNode',
-                                       p: 'TreeNode',
-                                       q: 'TreeNode') -> 'TreeNode':
+    def lca(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode | None:
         """
-            Time Complexity: O(n)
-            Space Complexity: O(n)
+        If p and q are both found in left and right subtrees, then the current
+        node is the LCA. Otherwise, since all nodes' values are unique and that
+        p and q are guaranteed to exist, if only one is found, then the other
+        one must be a descendant of it, thus returning it directly as it is the
+        LCA for both.
+        Time Complexity: O(n)
+        Space Complexity: O(n)
         """
         if root in (None, p, q):
             return root
-        lca_left = self.lowestCommonAncestor_recursive(root.left, p, q)
-        lca_right = self.lowestCommonAncestor_recursive(root.right, p, q)
+        lca_left = self.lca(root.left, p, q)
+        lca_right = self.lca(root.right, p, q)
         if lca_left and lca_right:
             return root
-        if not lca_left and not lca_right:
-            return lca_left
-        if not lca_left:
-            return lca_right
-        else:
-            return lca_left
+        return lca_left or lca_right
         
-    def lowestCommonAncestor_iterative(self,
-                                       root: 'TreeNode',
-                                       p: 'TreeNode',
-                                       q: 'TreeNode') -> 'TreeNode':
+    def lca_2(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
         """
-            Time Complexity: O(n)
-            Space Complexity: O(n)
+        Perform DFS on the tree and store parent info on each node in a map.
+        Put all of p's parents in a set and go up on q's ancestors to find LCA.
+        Time Complexity: O(n)
+        Space Complexity: O(n)
         """
-        # Stack for tree traversal
         stack = [root]
 
         # Dictionary for parent pointers
@@ -70,60 +65,20 @@ class Solution:
         return q
 
 
-def stringToTreeNode(input, p_val, q_val):
-    input = input.strip()
-    input = input[1:-1]
-    if not input:
-        return None
-    
-    inputValues = [s.strip() for s in input.split(',')]
-    root = TreeNode(int(inputValues[0]))
-    p = root if p_val == int(inputValues[0]) else None
-    q = root if q_val == int(inputValues[0]) else None
-    nodeQueue = [root]
-    front = 0
-    index = 1
-    while index < len(inputValues):
-        node = nodeQueue[front]
-        front = front + 1
-        
-        item = inputValues[index]
-        index = index + 1
-        if item != "null":
-            leftNumber = int(item)
-            node.left = TreeNode(leftNumber)
-            p = node.left if p_val == leftNumber else p
-            q = node.left if q_val == leftNumber else q
-            nodeQueue.append(node.left)
-            
-        if index >= len(inputValues):
-            break
-            
-        item = inputValues[index]
-        index = index + 1
-        if item != "null":
-            rightNumber = int(item)
-            node.right = TreeNode(rightNumber)
-            p = node.right if p_val == rightNumber else p
-            q = node.right if q_val == rightNumber else q
-            nodeQueue.append(node.right)
-    return root, p, q
-
-
 def main():
     while True:
         try:
             line = input()
             p_val = int(input())
             q_val = int(input())
-            root, p, q = stringToTreeNode(line, p_val, q_val)
+            root, p, q = stringToTreeNode_pq(line, p_val, q_val)
             
             sol = Solution()
-            ret_recur = sol.lowestCommonAncestor_recursive(root, p, q)
-            ret_iter = sol.lowestCommonAncestor_iterative(root, p, q)
+            ret_r = sol.lca(root, p, q)
+            ret_i = sol.lca_2(root, p, q)
             
-            print(f"LCA found recursively: {ret_recur}")
-            print(f"LCA found iteratively: {ret_iter}")
+            print(f"LCA found recursively: {ret_r}")
+            print(f"LCA found iteratively: {ret_i}")
         except StopIteration:
             break
 
