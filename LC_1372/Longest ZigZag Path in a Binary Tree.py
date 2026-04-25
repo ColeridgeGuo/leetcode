@@ -16,17 +16,19 @@ from common_funcs import TreeNode, stringToTreeNode
 
 
 class Solution:
-    ans = 0
-
     def longestZigZag(self, root: TreeNode | None) -> int:
         """
+        Top-down DFS.
         Time Complexity: O(n)
-        Space Complexity: O(n)
+        Space Complexity: O(h), where h is tree height (recursion stack)
         """
+        ans = 0
+
         def dfs(node: TreeNode | None, from_left: bool, step: int):
+            nonlocal ans
             if not node:
                 return
-            self.ans = max(self.ans, step)
+            ans = max(ans, step)
             if from_left:  # current node is a left subtree
                 dfs(node.left, True, 1)
                 dfs(node.right, False, step + 1)
@@ -36,7 +38,38 @@ class Solution:
 
         dfs(root, False, 0)
         dfs(root, True, 0)
-        return self.ans
+        return ans
+
+    def longestZigZagBottomUp(self, root: TreeNode | None) -> int:
+        """
+        Alternative solution: Bottom-up DP (postorder).
+
+        For each node, return a tuple:
+        - go_left: longest ZigZag length starting at node when first move is left
+        - go_right: longest ZigZag length starting at node when first move is right
+
+        Time Complexity: O(n)
+        Space Complexity: O(h), where h is tree height (recursion stack)
+        """
+        ans = 0
+
+        def dfs(node: TreeNode | None) -> tuple[int, int]:
+            nonlocal ans
+            if not node:
+                # -1 helps leaf children compute to 0 via +1
+                return -1, -1
+
+            left_go_left, left_go_right = dfs(node.left)
+            right_go_left, right_go_right = dfs(node.right)
+
+            go_left = left_go_right + 1
+            go_right = right_go_left + 1
+            ans = max(ans, go_left, go_right)
+            return go_left, go_right
+
+        dfs(root)
+        return ans
+
 
 
 def main():
