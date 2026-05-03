@@ -64,14 +64,9 @@ class Solution:
         Space Complexity: O(n)
         """
         count, sum_ = 0, 0
-        # dic = {0: 1}
-        dic = {}
+        dic = {0: 1}
         for n in nums:
             sum_ += n
-            # if cumulative sum explicitly equals to k, increment count by 1
-            # these two lines can be replaced by dic = {0:1}
-            if sum_ == k:
-                count += 1
             count += dic.get(sum_ - k, 0)
             dic[sum_] = dic.get(sum_, 0) + 1
         return count
