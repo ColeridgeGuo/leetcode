@@ -7,20 +7,16 @@ from common_funcs import stringToString
 
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        if s == "":
-            return True
-        head = 0; tail = len(s) - 1
-        while tail > head:
-            while not s[head].isalnum():
-                head += 1
-                if head >= len(s): return True
-            while not s[tail].isalnum():
-                tail -= 1
-                if tail <= 0: return True
-            if s[head].lower() != s[tail].lower():
+        L, R = 0, len(s) - 1
+        while L < R:
+            while L < R and not s[L].isalnum():
+                L += 1
+            while L < R and not s[R].isalnum():
+                R -= 1
+            if s[L].casefold() != s[R].casefold():
                 return False
-            head += 1
-            tail -= 1
+            L += 1
+            R -= 1
         return True
 
 
