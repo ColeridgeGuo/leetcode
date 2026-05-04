@@ -1,8 +1,11 @@
 .DS_Store
 .idea
-leetcode-problemset-all-freq.pdf
+.ai
+.vscode
+.python-version
+
 /common_funcs/__pycache__/
-env
-/.python-version
-.vscode/
+
 first_leetcode_not_done.py
+
+leetcode-problemset-all-freq.pdf
