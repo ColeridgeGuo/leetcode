@@ -3,6 +3,7 @@
 .ai
 .vscode
 .python-version
+.venv
 
 /common_funcs/__pycache__/
 
