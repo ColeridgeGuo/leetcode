@@ -5,24 +5,24 @@ from common_funcs import stringToListNode, ListNode, listNodeToString
 
 
 class Solution:
-    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode | None:
         """
-        First find tail and length, then connect tail to head to form a loop and 
-        find new tail and head using k to find the the rotated list
+        First find tail and length, then connect tail to head to form a loop,
+        and find new tail and head using k to find the rotated list
         """
         if not head:
             return head
         # find the tail and the length of the list
         tail, length = head, 1
         while tail.next:
-            tail, length = tail.next, length + 1
+            tail = tail.next
+            length += 1
         # connect tail to head to form a loop
         tail.next = head
         # rotating k times is the same as rotating k % length times
         k %= length
-        if k:  # if rotating other than 0 times
-            for _ in range(length - k):
-                tail = tail.next  # find the new tail
+        for _ in range(length - k):
+            tail = tail.next  # find the new tail
         head = tail.next  # new head is tail.next because it's a loop
         tail.next = None  # un-loop the list
         return head
