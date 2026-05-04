@@ -26,14 +26,19 @@ class Solution:
         """
         matrix[:] = zip(*matrix[::-1])
 
-    def rotate_3(self, matrix: List[List[int]])-> None:
+    def rotate_3(self, matrix: List[List[int]]) -> None:
         """
-        reverse upside down and transpose manually
+        Transpose the matrix first, then reverse the rows
         """
-        matrix.reverse()
         for i in range(len(matrix)):
             for j in range(i):
                 matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        for row in matrix:
+            L, R = 0, len(row) - 1
+            while L < R:
+                row[L], row[R] = row[R], row[L]
+                L += 1
+                R -= 1
 
 
 def main():
@@ -55,10 +60,6 @@ def main():
             print(out)
             print(out2)
             print(out3)
-            # for row in matrix:
-            #     for val in row:
-            #         print(f'{val:3}', end="")
-            #     print()
 
         except StopIteration:
             break
