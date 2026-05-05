@@ -25,6 +25,20 @@ class Solution:
             l, r = r + 1, max(i + nums[i] for i in range(l, r+1))
         return jumps
 
+    def jump_2(self, nums: List[int]) -> int:
+        """
+        Greedily find the farthest jump we can make from each position.
+        Update the right boundary when we reach the current boundary.
+        Increment jumps when we cross the current boundary.
+        """
+        jumps = right_boundary = max_reach = 0
+        for i in range(len(nums) - 1):
+            max_reach = max(max_reach, i + nums[i])
+            if i == right_boundary:
+                jumps += 1
+                right_boundary = max_reach
+        return jumps
+
 
 def main():
     while True:
@@ -34,9 +48,12 @@ def main():
 
             sol = Solution()
             ret = sol.jump(nums)
+            ret2 = sol.jump_2(nums)
 
             out = (ret)
+            out2 = (ret2)
             print(out)
+            print(out2)
         except StopIteration:
             break
 
