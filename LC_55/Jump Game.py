@@ -12,24 +12,29 @@ from common_funcs import stringToList
 
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        max_reach = 0  # farthest index we can reach so far, initially 0
-        for i in range(len(nums)):
-            # return true if we can reach or exceed the last index
-            if max_reach >= len(nums) - 1:
-                return True
-            # update max_reach with current jump + current index
-            max_reach = max(max_reach, i + nums[i])
-            # return false if we are stuck here (nums[i] = 0)
-            if max_reach == i:
+        max_reach = 0  # farthest index we can reach so far
+        for i in range(len(nums)):  # visit every index in order
+            if i > max_reach:  # current index is unreachable
                 return False
-        
+            max_reach = max(max_reach, i + nums[i])  # extend reach from index i
+        return True  # every index was reachable, so the last index is reachable
+
     def canJump_2(self, nums: List[int]) -> bool:
-        last = len(nums) - 1  # assume that we have reached the last index
-        for i in range(len(nums) - 2, -1, -1):  # from back to front
-            # if last can be reached from current index, update last index
-            if nums[i] + i >= last:
-                last = i
-        return last == 0  # check if we can go back to the beginning
+        reach = len(nums) - 1  # leftmost index currently known to reach the end
+        for i in range(len(nums) - 2, -1, -1):  # check each earlier index
+            if nums[i] + i >= reach:  # index i can jump to the current goal
+                reach = i  # index i becomes the new goal
+        return reach == 0  # start index can reach the end only if goal moved to 0
+
+    def canJump_3(self, nums: List[int]) -> bool:
+        gas = 0  # steps we can still move before getting stuck
+        for n in nums:
+            if gas < 0:  # no gas means this position cannot be reached
+                return False
+            elif n > gas:  # current position gives us more reach than we had
+                gas = n  # refill gas to this position's jump length
+            gas -= 1  # spend one step moving to the next index
+        return True  # made it through the array without getting stranded
 
 
 def main():
@@ -41,11 +46,14 @@ def main():
             sol = Solution()
             ret = sol.canJump(nums)
             ret2 = sol.canJump_2(nums)
+            ret3 = sol.canJump_3(nums)
 
             out = str(ret)
             out2 = str(ret2)
+            out3 = str(ret3)
             print(f"Solved from front to back: {out}")
             print(f"Solved from back to front: {out2}")
+            print(f"Solved with gas tank:      {out3}")
         except StopIteration:
             break
 
