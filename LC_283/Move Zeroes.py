@@ -1,6 +1,8 @@
 """
-    Given an array nums, write a function to move all 0's to the end of it while
-    maintaining the relative order of the non-zero elements.
+Given an array nums, write a function to move all 0's to the end of it while
+maintaining the relative order of the non-zero elements.
+
+Note that you must do this in-place without making a copy of the array.
 """
 from typing import List
 from common_funcs import stringToList, listToString
@@ -10,6 +12,8 @@ class Solution:
 
     def moveZeroes(self, nums: List[int]) -> None:
         """
+        - Slow pointer is where the next non-zero element will be.
+        - Fast pointer finds the next non-zero element.
         - All elements before the slow pointer are non-zeroes.
         - All elements between the current and slow pointer are zeroes.
         Time Complexity: O(n)
@@ -19,7 +23,6 @@ class Solution:
         for fast in range(len(nums)):
             if nums[fast] != 0:
                 nums[slow], nums[fast] = nums[fast], nums[slow]
-            if nums[slow] != 0:
                 slow += 1
 
 
