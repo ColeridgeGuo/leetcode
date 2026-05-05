@@ -1,8 +1,12 @@
 """
-Given n non-negative integers a1, a2, ..., an, where each represents a point at
-coordinate (i, ai). n vertical lines are drawn such that the two endpoints of
-line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis
-forms a container, such that the container contains the most water.
+You are given an integer array height of length n. There are n vertical lines
+drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+
+Find two lines that together with the x-axis form a container, such that the
+container contains the most water.
+
+Return the maximum amount of water a container can store.
+
 Note: You may not slant the container and n is at least 2.
 """
 from typing import List
@@ -12,14 +16,14 @@ from common_funcs import stringToList
 class Solution:
     def maxArea(self, height: List[int]) -> int:
         """
+        Two-pointer approach: Start with the widest container.
+        The area is limited by the shorter height. Moving the taller pointer
+        can only decrease area (shorter height stays same, width decreases).
+        Moving the shorter pointer might find a taller line, potentially
+        increasing area despite the width decrease.
+        
         Time complexity : O(n). Single pass.
         Space complexity : O(1). Constant space is used.
-        
-        You have two heights H_left and H_right, and H_right < H_left, then we
-        know we have two choices, we want to move one of them. If we move the
-        larger one, we cannot increase the height for the simple reason that we
-        are always limited by the shortest, and we would be decreasing j-i, the
-        width as well.
         """
         l, r = 0, len(height) - 1
         max_area = 0
