@@ -5,6 +5,7 @@
 .python-version
 .venv
 
+interviews
 /common_funcs/__pycache__/
 
 first_leetcode_not_done.py

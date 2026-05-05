@@ -32,19 +32,39 @@ class Solution:
 
     def trap_two_pointer(self, height: List[int]) -> int:
         """
+        Two pointer approach that moves from both ends towards the center.
+        The key insight is that the amount of water trapped at any position 
+        depends on the minimum of the maximum heights on its left and right.
+
+        We maintain two pointers left and right and track the maximum heights
+        seen so far from each end (l_max and r_max). At each step, we move the
+        pointer with the smaller maximum height because we know that side is the
+        limiting factor for water trapping.
+
+        If l_max <= r_max, we can safely calculate water at left position since
+        l_max is the limiting factor (even if there's a taller bar somewhere to
+        the right, it doesn't matter because l_max is already smaller).
+
         Time Complexity: O(n)
-        Space Complexity: O(n)
+        Space Complexity: O(1)
         """
         water = 0
         n = len(height)
-        left, right = 0, n-1
-        l_max, r_max = height[left], height[right]
+        left, right = 0, n - 1
+        l_max = r_max = 0
         while left < right:
+            # Update the maximum height seen from the left and right
             l_max = max(l_max, height[left])
             r_max = max(r_max, height[right])
+
+            # If left max is smaller, it's the limiting factor for left position
+            # Calculate water trapped at left position and move left pointer
             if l_max <= r_max:
                 water += l_max - height[left]
                 left += 1
+
+            # Otherwise, right max is smaller and is the limiting factor
+            # Calculate water trapped at right position and move right pointer
             else:
                 water += r_max - height[right]
                 right -= 1
