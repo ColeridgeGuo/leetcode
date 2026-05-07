@@ -13,27 +13,22 @@ from common_funcs import stringToList
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         """
-        When nums[j] == val, skip this element by incrementing j. As long as 
-        nums[j] != val, we copy nums[j] to nums[i] and increment both indexes at 
-        the same time. Repeat the process until j reaches the end of the array 
-        and the new length is i.
+        Similar to leetcode 283 - Move Zeroes, we use slow and fast pointers to
+        move non-val elements to the front of the array. The slow pointer only
+        moves when we find a non-val element, while the fast pointer looks ahead
+        for non-val elements.
         """
-        i = 0
-        for j in range(len(nums)):
-            if nums[j] != val:
-                nums[i] = nums[j]
-                i += 1
-        return i
+        slow = 0
+        for fast in range(len(nums)):
+            if nums[fast] != val:
+                nums[slow] = nums[fast] # not swapping here as we don't care
+                slow += 1
+        return slow
 
     def removeElement_2(self, nums: List[int], val: int) -> int:
-        """
-        When elements to remove are rare, we swap elements that equal to val 
-        with the last element and decrease array length by 1 to avoid 
-        unnecessary swaps
-        """
         i, n = 0, len(nums)
         while i < n:
-            if (nums[i] == val):
+            if nums[i] == val:
                 nums[i] = nums[n - 1]
                 n -= 1  # reduce array size by one
             else:
@@ -54,8 +49,8 @@ def main():
             ret = sol.removeElement(nums1, val)
             ret2 = sol.removeElement_2(nums2, val)
 
-            print(f"Solved by swapping non-val elements: {nums1[:ret]}")
-            print(f"Solved by swapping non-val elements: {nums2[:ret2]}")
+            print(f"Solved with slow/fast pointers: {nums1[:ret]}")
+            print(f"Solved with two pointers:       {nums2[:ret2]}")
         except StopIteration:
             break
 
