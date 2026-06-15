@@ -13,23 +13,14 @@ from common_funcs import stringToListNode, ListNode, listNodeToString
 
 class Solution:
     def deleteMiddle(self, head: ListNode | None) -> ListNode | None:
-        length = 0
-        curr = head
-        # iterating through the list to get its length
-        while curr:
-            length += 1
-            curr = curr.next
-        if length <= 1:
-            return
-        curr = head
-        length //= 2
-
-        # go the node before the middle one
-        while length > 1:
-            curr = curr.next
-            length -= 1
-        # remove the middle node
-        curr.next = curr.next.next
+        if not head.next:
+            return None
+        fast = slow = prev = head
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+        prev.next = slow.next
         return head
 
     def deleteMiddle_2(self, head: ListNode | None) -> ListNode | None:
@@ -54,8 +45,8 @@ def main():
 
             out = listNodeToString(ret)
             out2 = listNodeToString(ret2)
-            print(f"Solved by calculating length:    {out}")
-            print(f"Solved by slow and fast pointer: {out2}")
+            print(f"Solved by slow/fast pointers with prev pointer: {out}")
+            print(f"Solved by slow/fast pointers with dummy head:   {out2}")
         except StopIteration:
             break
 
