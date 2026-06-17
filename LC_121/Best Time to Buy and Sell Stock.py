@@ -21,6 +21,14 @@ class Solution:
             res = max(res, prices[i] - lowest)
         return res
 
+    def maxProfit_kadane(self, prices: List[int]) -> int:
+        res = 0
+        curr_profit = 0
+        for i in range(1, len(prices)):
+            diff = prices[i] - prices[i - 1]
+            curr_profit = max(0, curr_profit + diff)
+            res = max(res, curr_profit)
+        return res
 
 def main():
     while True:
@@ -28,9 +36,12 @@ def main():
             line = input()
             prices = stringToList(line)
 
-            ret = Solution().maxProfit(prices)
+            sol = Solution()
+            ret = sol.maxProfit(prices)
+            ret2 = sol.maxProfit_kadane(prices)
 
-            print(ret)
+            print(f"Solved with finding lowest price to buy: {ret}")
+            print(f"Solved with Kadane's algorithm:          {ret2}")
         except StopIteration:
             break
 
