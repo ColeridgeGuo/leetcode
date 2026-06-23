@@ -31,7 +31,7 @@ class Solution:
         for n in nums:
             if gas < 0:  # no gas means this position cannot be reached
                 return False
-            elif n > gas:  # current position gives us more reach than we had
+            if n > gas:  # current position gives us more reach than we had
                 gas = n  # refill gas to this position's jump length
             gas -= 1  # spend one step moving to the next index
         return True  # made it through the array without getting stranded
