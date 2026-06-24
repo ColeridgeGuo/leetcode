@@ -16,8 +16,8 @@ class Solution:
     def jump(self, nums: List[int]) -> int:
         """
         Starting from l, the farthest I can go in one jump is r. 
-        Then we greedily find the next greatest jump with in [l, r] we can make, 
-        and adjust [l,r] accordingly until we reach the end
+        Then we greedily find the next greatest jump within [l, r] we can make,
+        and adjust [l,r] accordingly until we reach the end.
         """
         l, r, jumps = 0, 0, 0
         while r < len(nums) - 1:
@@ -50,8 +50,8 @@ def main():
             ret = sol.jump(nums)
             ret2 = sol.jump_2(nums)
 
-            out = (ret)
-            out2 = (ret2)
+            out = str(ret)
+            out2 = str(ret2)
             print(out)
             print(out2)
         except StopIteration:
