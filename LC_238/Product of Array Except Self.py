@@ -24,14 +24,13 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
-        prefix = [0] * len(nums)
-        suffix = [0] * len(nums)
-        prefix[0] = 1
-        suffix[-1] = 1
-        for i in range(1, len(nums)):
+        n = len(nums)
+        prefix = [1] * n
+        suffix = [1] * n
+        for i in range(1, n):
             prefix[i] = nums[i-1] * prefix[i-1]
             suffix[~i] = nums[~i + 1] * suffix[~i + 1]
-        return [prefix[i] * suffix[i] for i in range(len(nums))]
+        return [x * y for x, y in zip(prefix, suffix)]
 
     def productExceptSelf_2(self, nums: List[int]) -> List[int]:
         """
@@ -40,14 +39,16 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1)
         """
-        res = [0] * len(nums)
-        res[0] = 1
-        for i in range(1, len(nums)):
-            res[i] = nums[i - 1] * res[i - 1]
-        suffix_product = 1
-        for i in range(len(nums) - 1, -1, -1):
-            res[i] *= suffix_product
-            suffix_product *= nums[i]
+        n = len(nums)
+        res = [1] * n
+        curr = 1
+        for i in range(n):
+            res[i] *= curr
+            curr *= nums[i]
+        curr = 1
+        for i in range(n):
+            res[~i] *= curr
+            curr *= nums[~i]
         return res
 
 
