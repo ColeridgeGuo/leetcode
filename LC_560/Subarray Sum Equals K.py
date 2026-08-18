@@ -7,52 +7,6 @@ from common_funcs import stringToList
 
 
 class Solution:
-    def subarraySum_bf(self, nums: List[int], k: int) -> int:
-        """
-        Brute force solution: find every subarray sum
-        Time Complexity: O(n^3)
-        Space Complexity: O(1)
-        """
-        count = 0
-        for start in range(len(nums)):
-            for end in range(start+1, len(nums)+1):
-                sum_ = 0
-                for i in range(start, end):
-                    sum_ += nums[i]
-                if sum_ == k:
-                    count += 1
-        return count
-
-    def subarraySum_cs(self, nums: List[int], k: int) -> int:
-        """
-        Build a cumulative sum array
-        Subarray sum for [i,j] is cum_sum[j] - cum_sum[i]
-        Time Complexity: O(n^2)
-        Space Complexity: O(n)
-        """
-        from itertools import accumulate
-        count = 0
-        cum_sum = [0] + list(accumulate(nums))
-        for start in range(len(nums)):
-            for end in range(start+1, len(nums)+1):
-                if cum_sum[end] - cum_sum[start] == k:
-                    count += 1
-        return count
-
-    def subarraySum_cs2(self, nums: List[int], k: int) -> int:
-        """
-        Calculate cumulative sum on the go and increment count if == k
-        Time Complexity: O(n^2)
-        Space Complexity: O(1)
-        """
-        count = 0
-        for start in range(len(nums)):
-            sum_ = 0
-            for end in range(start, len(nums)):
-                sum_ += nums[end]
-                if sum_ == k:
-                    count += 1
-        return count
 
     def subarraySum_hm(self, nums: List[int], k: int) -> int:
         """
@@ -63,12 +17,12 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
-        count, sum_ = 0, 0
-        dic = {0: 1}
+        count, prefix_sum = 0, 0
+        prefix_count = {0: 1}
         for n in nums:
-            sum_ += n
-            count += dic.get(sum_ - k, 0)
-            dic[sum_] = dic.get(sum_, 0) + 1
+            prefix_sum += n
+            count += prefix_count.get(prefix_sum - k, 0)
+            prefix_count[prefix_sum] = prefix_count.get(prefix_sum, 0) + 1
         return count
 
 
@@ -81,19 +35,10 @@ def main():
             k = int(line)
 
             sol = Solution()
-            ret = sol.subarraySum_bf(nums, k)
-            ret2 = sol.subarraySum_cs(nums, k)
-            ret3 = sol.subarraySum_cs2(nums, k)
-            ret4 = sol.subarraySum_hm(nums, k)
+            ret = sol.subarraySum_hm(nums, k)
 
             out = str(ret)
-            out2 = str(ret2)
-            out3 = str(ret3)
-            out4 = str(ret4)
-            print(f"Solved with brute force:              {out}")
-            print(f"Solved with cumulative sum:           {out2}")
-            print(f"Solved with cumulative sum on the go: {out3}")
-            print(f"Solved using hashmap:                 {out4}")
+            print(f"Solved using hashmap: {out}")
         except StopIteration:
             break
 
