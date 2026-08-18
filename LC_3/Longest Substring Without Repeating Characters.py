@@ -6,28 +6,38 @@ from common_funcs import stringToList
 
 
 class Solution:
-    def lengthOfLongestSubstring_hashset(self, s: str) -> int:
-        hashset = set()
-        ans = start = end = 0
-        while start < len(s) and end < len(s):
-            if s[end] not in hashset:
-                hashset.add(s[end])
-                end += 1
-                ans = max(ans, end - start)
-            else:
-                hashset.remove(s[start])
+    def lengthOfLongestSubstring_set(self, s: str) -> int:
+        """
+        Maintain a set-backed sliding window of unique characters, shrinking
+        from the left whenever the next character is already in the window.
+        Time Complexity: O(n)
+        Space Complexity: O(n)
+        """
+        seen = set()
+        longest = start = 0
+        for end, char in enumerate(s):
+            while char in seen:
+                seen.remove(s[start])
                 start += 1
-        return ans
+            seen.add(char)
+            longest = max(longest, len(seen)) # or (end - start + 1)
+        return longest
     
     def lengthOfLongestSubstring_dict(self, s: str) -> int:
-        dic = {}
-        ans = start = 0
-        for i, char in enumerate(s):
-            if char in dic and start <= dic[char]:
-                start = dic[char] + 1
-            ans = max(ans, i - start + 1)
-            dic[char] = i
-        return ans
+        """
+        Track each character's last index and jump the window's left boundary
+        past a duplicate without moving the boundary backward.
+        Time Complexity: O(n)
+        Space Complexity: O(n)
+        """
+        last_seen = {}
+        longest = start = 0
+        for end, char in enumerate(s):
+            if char in last_seen:
+                start = max(start, last_seen[char] + 1)
+            last_seen[char] = end
+            longest = max(longest, end - start + 1)
+        return longest
 
 
 def main():
@@ -37,11 +47,11 @@ def main():
             s = stringToList(line)
             
             sol = Solution()
-            ret_s = sol.lengthOfLongestSubstring_hashset(s)
+            ret_s = sol.lengthOfLongestSubstring_set(s)
             ret_d = sol.lengthOfLongestSubstring_dict(s)
             
-            print(f"Solved using hashset:    {ret_s}")
-            print(f"solved using dictionary: {ret_d}")
+            print(f"Solved using a set:        {ret_s}")
+            print(f"solved using a dictionary: {ret_d}")
         except StopIteration:
             break
 
