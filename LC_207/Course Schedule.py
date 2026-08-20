@@ -14,26 +14,31 @@ from common_funcs import stringToList
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adjacency: List[List[int]] = [[] for _ in range(numCourses)]
-        in_degrees = [0 for _ in range(numCourses)]
-        for c1, c2 in prerequisites:
-            adjacency[c1].append(c2)  # build adjacency list
-            in_degrees[c2] += 1  # build in-degree list
+        graph = [[] for _ in range(numCourses)]
+        in_degrees = [0] * numCourses
+
+        for course, prerequisite in prerequisites:
+            graph[prerequisite].append(course) # build adjacency list
+            in_degrees[course] += 1 # build in-degree list
+
+        # start with courses that have no prerequisites (nodes with 0 in-degree)
         from collections import deque
-        queue, visited = deque(), set()
-        # find nodes with in-degree 0 (the nodes to start with)
-        for i, dg in enumerate(in_degrees):
-            if not dg:
-                queue.append(i)
-        # loop all the nodes whose in-degree is 0
+        queue = deque(
+            course for course in range(numCourses) if in_degrees[course] == 0)
+
+        completed = 0
+
         while queue:
-            idx = queue.popleft()
-            visited.add(idx)
-            for edge in adjacency[idx]:
-                in_degrees[edge] -= 1
-                if not in_degrees[edge]:
-                    queue.append(edge)
-        return len(visited) == numCourses
+            course = queue.popleft()
+            completed += 1
+
+            for next_course in graph[course]:
+                in_degrees[next_course] -= 1
+
+                if in_degrees[next_course] == 0:
+                    queue.append(next_course)
+
+        return completed == numCourses
 
 
 def main():
