@@ -16,6 +16,18 @@ class Solution:
         count = collections.Counter(nums)
         return heapq.nlargest(k, count, key=count.get)
 
+    def topKFrequent_heap2(self, nums: List[int], k: int) -> List[int]:
+        frequencies = collections.Counter(nums)
+        heap = []
+
+        for number, frequency in frequencies.items():
+            heapq.heappush(heap, (frequency, number))
+
+            if len(heap) > k:
+                heapq.heappop(heap)
+
+        return [number for _, number in heap]
+
     def topKFrequent_qs(self, nums: List[int], k: int) -> List[int]:
         count = collections.Counter(nums)
         unique = list(count.keys())
@@ -81,6 +93,21 @@ class Solution:
         flattened = list(itertools.chain.from_iterable(buckets))
         return flattened[:k]
 
+    def topKFrequent_bs2(self, nums: List[int], k: int) -> List[int]:
+        frequencies = collections.Counter(nums)
+        buckets = [[] for _ in range(len(nums) + 1)]
+
+        for number, frequency in frequencies.items():
+            buckets[frequency].append(number)
+
+        result = []
+
+        for frequency in range(len(buckets) - 1, 0, -1):
+            for number in buckets[frequency]:
+                result.append(number)
+
+                if len(result) == k:
+                    return result
 
 def main():
     while True:
@@ -92,15 +119,21 @@ def main():
 
             sol = Solution()
             ret = sol.topKFrequent_heap(nums, k)
-            ret2 = sol.topKFrequent_qs(nums, k)
-            ret3 = sol.topKFrequent_bs(nums, k)
+            ret2 = sol.topKFrequent_heap2(nums, k)
+            ret3 = sol.topKFrequent_qs(nums, k)
+            ret4 = sol.topKFrequent_bs(nums, k)
+            ret5 = sol.topKFrequent_bs2(nums, k)
 
             out = listToString(ret)
             out2 = listToString(ret2)
             out3 = listToString(ret3)
-            print(f"Solved using heap:         {out}")
-            print(f"Solved using quick-select: {out2}")
-            print(f"Solved using bucket sort:  {out3}")
+            out4 = listToString(ret4)
+            out5 = listToString(ret5)
+            print(f"Solved with heapq.nlargest: {out}")
+            print(f"Solved using min heap:      {out2}")
+            print(f"Solved using quick-select:  {out3}")
+            print(f"Solved using bucket sort:   {out4}")
+            print(f"Solved using bucket sort 2: {out5}")
         except StopIteration:
             break
 
