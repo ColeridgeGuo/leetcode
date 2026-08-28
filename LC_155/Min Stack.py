@@ -38,6 +38,29 @@ class MinStack:
     def getMin(self) -> int:
         return int(self.minNum)
 
+class MinStack2:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+
+    def push(self, value: int) -> None:
+        self.stack.append(value)
+
+        if not self.min_stack:
+            self.min_stack.append(value)
+        else:
+            self.min_stack.append(min(self.min_stack[-1], value))
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.min_stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.min_stack[-1]
+
 
 def main():
     while True:
@@ -48,19 +71,27 @@ def main():
             numbers = stringToList(numbers)
             
             minStack = None
+            minStack2 = None
             for i, operation in enumerate(operations):
                 if operation == "MinStack":
                     minStack = MinStack()
+                    minStack2 = MinStack2()
                 elif operation == "push":
                     minStack.push(numbers[i][0])
+                    minStack2.push(numbers[i][0])
                 elif operation == "pop":
                     minStack.pop()
+                    minStack2.pop()
                 elif operation == "top":
                     top = minStack.top()
+                    top2 = minStack2.top()
                     print(top)
+                    print(top2)
                 elif operation == "getMin":
                     m = minStack.getMin()
+                    m2 = minStack2.getMin()
                     print(m)
+                    print(m2)
         except StopIteration:
             break
 
