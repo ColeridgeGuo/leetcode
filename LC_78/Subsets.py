@@ -47,6 +47,28 @@ class Solution:
             backtrack([], 0, k)
         return res
 
+    def subsets_bt2(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        path = []
+
+        def backtrack(index: int) -> None:
+            if index == len(nums):
+                result.append(path.copy())
+                return
+
+            # not choosing nums[index]
+            backtrack(index + 1)
+
+            # choosing nums[index]
+            path.append(nums[index])
+            backtrack(index + 1)
+
+            # revert choice
+            path.pop()
+
+        backtrack(0)
+        return result
+
 
 def main():
     while True:
@@ -58,13 +80,16 @@ def main():
             ret = sol.subsets_py(nums)
             ret2 = sol.subsets(nums)
             ret3 = sol.subsets_bt(nums)
+            ret4 = sol.subsets_bt2(nums)
 
             out = listToString(ret)
             out2 = listToString(ret2)
             out3 = listToString(ret3)
+            out4 = listToString(ret4)
             print(f"Solved using itertools:    {out}")
             print(f"Solved using backtracking: {out2}")
             print(f"Solved using backtracking: {out3}")
+            print(f"Solved using backtracking: {out4}")
         except StopIteration:
             break
 
