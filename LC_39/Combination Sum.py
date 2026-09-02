@@ -14,40 +14,47 @@ from common_funcs import stringToList, listToString
 
 class Solution:
     def combinationSum(self, candidates: List[int],
-                       target: int) -> List[List[int]]:
-        
-        def backtrack(choices: List[int], target: int, track: List[int]):
-            if target < 0:
-                return
-            if target == 0:
-                res.append(track)
-                return
-            for i in range(len(choices)):
-                backtrack(choices[i:], target-choices[i], track+[choices[i]])
-                
-        res = []
-        backtrack(candidates, target, [])
-        return res
-    
-    def combinationSum_2(self, candidates: List[int],
                          target: int) -> List[List[int]]:
         
-        def backtrack(choices: List[int], target: int,
+        def backtrack(choices: List[int], remaining: int,
                       track: List[int], start: int) -> None:
-            if target < 0:
+            if remaining < 0:
                 return
-            elif target == 0:
-                # need to create a copy of track; unlike the previous method
-                # where 'track + [choices[i]]' creates a new list
-                res.append(track[:])
+            if remaining == 0:
+                res.append(track.copy())
             else:
                 for i in range(start, len(choices)):
                     track.append(choices[i])  # choose
-                    backtrack(choices, target - choices[i], track, i)
+                    backtrack(choices, remaining - choices[i], track, i)
                     track.pop(-1)  # un-choose
         res = []
         backtrack(candidates, target, [], 0)
         return res
+
+    def combinationSum_2(self, candidates: list[int],
+                         target: int) -> list[list[int]]:
+
+        candidates.sort()
+        result = []
+        path = []
+
+        def backtrack(start: int, remaining: int) -> None:
+            if remaining == 0:
+                result.append(path.copy())
+                return
+
+            for index in range(start, len(candidates)):
+                candidate = candidates[index]
+
+                if candidate > remaining:
+                    break
+
+                path.append(candidate)
+                backtrack(index, remaining - candidate)
+                path.pop()
+
+        backtrack(0, target)
+        return result
 
 
 def main():
