@@ -14,6 +14,16 @@ from common_funcs import stringToList
 
 
 class Solution:
+    def rob(self, nums: List[int]) -> int:
+        prev2 = 0
+        prev1 = 0
+
+        for money in nums:
+            curr = max(prev1, prev2 + money)
+            prev2 = prev1
+            prev1 = curr
+        return prev1
+
     def rob_DP(self, nums: List[int]) -> int:
         
         if not nums:
@@ -35,8 +45,10 @@ def main():
             nums = stringToList(line)
             
             sol = Solution()
+            ret = sol.rob(nums)
             ret_DP = sol.rob_DP(nums)
-            
+
+            print(f"Solved with space optimization:  {ret}")
             print(f"Solved with dynamic programming: {ret_DP}")
         except StopIteration:
             break
