@@ -8,63 +8,70 @@ The testcases will be generated such that the answer is unique.
 A substring is a contiguous sequence of characters within the string.
 """
 from common_funcs import stringToString, stringToString_out
-
+from collections import Counter
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        from collections import Counter
+        """
+        Expand a sliding window and count distinct required characters whose
+        frequencies are satisfied. Shrink each valid window to find the shortest.
 
-        # Unique chars and their frequencies for t and for current window
-        t_count, window_count = Counter(t), Counter()
-        # left and right pointer for the window
-        l, r = 0, 0
-        # num unique chars in t that are in current window and are required
-        formed, required = 0, len(t_count)
-        # window length, left, right
-        ans = float('inf'), None, None
+        Time Complexity: O(m + n), where m = len(s), n = len(t).
+        Space Complexity: O(k) auxiliary space, where k is the number of distinct
+        characters in s and t combined; the returned substring uses O(m) space.
+        """
+        window, need = Counter(), Counter(t)
+        formed, required = 0, len(need)
 
-        while r < len(s):
-            if s[r] in t_count:
-                window_count[s[r]] += 1  # add char on the right to window
-                if window_count[s[r]] == t_count[s[r]]:
-                    # if char's freq reaches freq of it in t, increment formed
-                    formed += 1
+        best_start = best_end = 0
+        left = 0
 
-            # squeeze window to find min window
-            while l <= r and formed == required:
-                if r - l + 1 < ans[0]:  # save min window so far
-                    ans = r - l + 1, l, r
+        for right, right_char in enumerate(s):
+            window[right_char] += 1
 
-                # remove char on the left from window
-                if s[l] in t_count:
-                    window_count[s[l]] -= 1
-                    if window_count[s[l]] < t_count[s[l]]:
-                        formed -= 1
-                l += 1
-            r += 1
-        return "" if ans[0] == float('inf') else s[ans[1]: ans[2]+1]
+            if right_char in need and window[right_char] == need[right_char]:
+                formed += 1
+
+            while formed == required:
+                if not best_end or right - left + 1 < best_end - best_start:
+                    best_start, best_end = left, right + 1
+
+                left_char = s[left]
+                window[left_char] -= 1
+
+                if left_char in need and window[left_char] < need[left_char]:
+                    formed -= 1
+
+                left += 1
+        return s[best_start: best_end]
 
     def minWindow_2(self, s: str, t: str) -> str:
-        from collections import Counter
+        """
+        Track character deficits and the total missing count in a sliding window.
+        Once valid, remove surplus characters from the left and record the shortest
+        window, keeping it valid as the right boundary advances.
 
-        # positive - we still need it; negative - we have an excess of it
-        needed = Counter(t)  # how many times we need each char in t
-        missing = len(t)  # how many chars still missing
-        l = min_l = min_r = 0  # left/right pointers for current and min window
+        Time Complexity: O(m + n), where m = len(s), n = len(t).
+        Space Complexity: O(k) auxiliary space, where k is the number of distinct
+        characters in s and t combined; the returned substring uses O(m) space.
+        """
+        deficit = Counter(t)  # positive means missing; negative means surplus
+        missing_count = len(t)  # total missing characters, including duplicates
+        left = best_start = best_end = 0  # best window is [best_start, best_end)
 
-        for r, char in enumerate(s, 1):
-            missing -= needed[char] > 0  # match a needed char
-            needed[char] -= 1  # decrement freq for char
+        for right, right_char in enumerate(s, 1):  # exclusive right boundary
+            missing_count -= deficit[right_char] > 0  # match a needed char
+            deficit[right_char] -= 1  # reduce the deficit for the added character
 
-            if not missing:  # if nothing missing, squeeze window
-                while l < r and needed[s[l]] < 0:
-                    needed[s[l]] += 1
-                    l += 1  # squeeze window for smaller window
+            if not missing_count:  # if nothing missing, squeeze window
+                while left < right and deficit[s[left]] < 0:
+                    deficit[s[left]] += 1
+                    left += 1  # squeeze window for smaller window
 
-                if not min_r or r - l < min_r - min_l:
-                    min_l, min_r = l, r  # update left/right for min window
+                if not best_end or right - left < best_end - best_start:
+                    best_start, best_end = left, right  # update best window boundaries
 
-        return s[min_l: min_r]
+        return s[best_start: best_end]
 
 
 def main():
