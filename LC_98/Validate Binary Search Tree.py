@@ -12,10 +12,10 @@ from common_funcs import TreeNode, stringToTreeNode
 
 class Solution:
     def isValidBST(self, root: TreeNode | None) -> bool:
-        def dfs(node: TreeNode, min_val, max_val):
+        def dfs(node: TreeNode | None, min_val, max_val):
             if not node:
                 return True
-            if node.val <= min_val or node.val >= max_val:
+            if not (min_val < node.val < max_val):
                 return False
             return (dfs(node.left, min_val, node.val) and
                     dfs(node.right, node.val, max_val))
